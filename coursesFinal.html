@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+button:hover {
+    opacity:1;
+}
+
+/* Extra styles for the cancel buttons */
+.CancelButton {
+    padding: 14px 20px;
+    background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+}
+
+/* Add padding to container elements */
+.container {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* The Modal (background) */
+.AllModals {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .CancelButton {
+       width: 100%;
+    }
+}
+
+
+</style>
+</head>
+<body>
+
+
+<h2>Home Page</h2>
+
+<button onclick="document.getElementById('AddCourse').style.display='block'" style="width:auto;">Add Course</button><br>
+
+<div id="AddCourse" class="AllModals">
+  
+  <form class="modal-content animate">
+  
+   <div class="imgcontainer">
+   
+      <span onclick="document.getElementById('AddCourse').style.display='none'" class="close" title="Close Modal">&times;</span>
+	  
+    </div>
+  
+    <div class="container">
+	
+      <h1>Add Course</h1>
+
+      <label for="courseName"><b>Course Name</b></label>
+      <input type="text" placeholder="Course Name" name="courseName" id='courseName' required>
+	  
+	  <label for="courseNumber"><b>Course Number</b></label>
+      <input type="text" placeholder="Course Number" name="courseNumber" id='courseNumber' required>
+	  
+	  <label for="sectionNumber"><b>Section Number</b></label>
+      <input type="text" placeholder="Section Number" name="sectionNumber" id='sectionNumber' required>
+	  
+	  <label for="instructor"><b>Instructor</b></label>
+      <input type="text" placeholder="Instructor Name" name="instructor" id='instructor' required>
+	  
+	  <button type="button" onclick="createCourse()">Add Course</button>
+	  
+	</div>
+
+	<div class="container" style="background-color:#f1f1f1">
+
+	  <button type="button" onclick="document.getElementById('AddCourse').style.display='none'" class="CancelButton">Cancel</button>
+
+	</div>	  
+	
+	</form> 
+</div>
+
+
+<button onclick="document.getElementById('AddClass').style.display='block'" style="width:auto;">Add a Class</button><br>
+
+<div id="AddClass" class="AllModals">
+  
+  <form class="modal-content animate">
+  
+   <div class="imgcontainer">
+   
+      <span onclick="document.getElementById('AddClass').style.display='none'" class="close" title="Close Modal">&times;</span>
+	  
+    </div>
+  
+    <div class="container">
+	
+      <h1>Add a Class</h1>
+
+      <label for="currentCourse"><b>Enter the course name or number you wish to update.</b></label>
+      <input type="text" placeholder="Name/Number" name="currentCourse" id='currentCourse' required>
+	  
+	  <label for="classType"><b>Class Type</b></label>
+      <input type="text" placeholder="Type" name="classType" id='classType' required>
+	  
+	  <label for="classDay"><b>Day of Class</b></label>
+      <input type="text" placeholder="Day" name="classDay" id='classDay' required>
+	  
+	  <label for="classStart"><b>Start Time.</b></label>
+      <input type="text" placeholder="hh:mmam/pm" name="classStart" id='classStart' required>
+	  
+	  <label for="classEnd"><b>End Time</b></label>
+      <input type="text" placeholder="hh:mmam/pm" name="classEnd" id='classEnd' required>
+	  
+	  <button type="button" onclick="createClass()">Add Class to Schedule</button>
+	  
+	</div>
+
+	<div class="container" style="background-color:#f1f1f1">
+
+	  <button type="button" onclick="document.getElementById('AddClass').style.display='none'" class="CancelButton">Cancel</button>
+
+	</div>	  
+	
+	</form> 
+</div>
+
+
+<button onclick="document.getElementById('AddDetails').style.display='block'" style="width:auto;">Add Course Details</button><br>
+
+<div id="AddDetails" class="AllModals">
+  
+  <form class="modal-content animate">
+  
+   <div class="imgcontainer">
+   
+      <span onclick="document.getElementById('AddDetails').style.display='none'" class="close" title="Close Modal">&times;</span>
+	  
+    </div>
+  
+    <div class="container">
+	
+      <h1>Add Details</h1>
+
+      <label for="currentCourse"><b>Enter the course name or number you wish to update.</b></label>
+      <input type="text" placeholder="Name/Number" name="currentCourse" id='currentCourse' required>
+	  
+	  <label for="courseGoal"><b>Enter your letter grade goal.</b></label>
+      <input type="text" placeholder="Letter Grade" name="courseGoal" id='courseGoal' required>
+	  
+	  <p>Enter the percentage required to achieve each letter grade</p>
+	  
+	  <label for="aPlus"><b>A+</b></label>
+      <input type="text" placeholder="percentage" name="aPlus" id='aPlus' required>
+	  
+	  <label for="a"><b>A</b></label>
+      <input type="text" placeholder="percentage" name="a" id='a' required>		
+	  
+	  <label for="aMinus"><b>A-</b></label>
+      <input type="text" placeholder="percentage" name="aMinus" id='aMinus' required>
+
+	  <label for="bPlus"><b>B+</b></label>
+      <input type="text" placeholder="percentage" name="bPlus" id='bPlus' required>
+
+	  <label for="b"><b>B</b></label>
+      <input type="text" placeholder="percentage" name="b" id='b' required>	  
+	  
+	  <label for="bMinus"><b>B-</b></label>
+      <input type="text" placeholder="percentage" name="bMinus" id='bMinus' required>
+	  
+	  <label for="cPlus"><b>C+</b></label>
+      <input type="text" placeholder="percentage" name="cPlus" id='cPlus' required>		
+	  
+	  <label for="c"><b>C</b></label>
+      <input type="text" placeholder="percentage" name="c" id='c' required>
+
+	  <label for="cMinus"><b>C-</b></label>
+      <input type="text" placeholder="percentage" name="cMinus" id='cMinus' required>
+
+	  <label for="d"><b>D</b></label>
+      <input type="text" placeholder="percentage" name="d" id='d' required>	  
+	  
+	  <label for="f"><b>F</b></label>
+      <input type="text" placeholder="percentage" name="f" id='f' required>	  
+	  
+	  <button type="button" onclick="addDetails()">Add Details</button>
+	  
+	</div>
+
+	<div class="container" style="background-color:#f1f1f1">
+
+	  <button type="button" onclick="document.getElementById('AddDetails').style.display='none'" class="CancelButton">Cancel</button>
+
+	</div>	  
+	
+	</form> 
+</div>
+
+
+<button onclick="document.getElementById('AddAssessment').style.display='block'" style="width:auto;">Add Assessment</button><br>
+
+<div id="AddAssessment" class="AllModals">
+  
+  <form class="modal-content animate">
+  
+   <div class="imgcontainer">
+   
+      <span onclick="document.getElementById('AddAssessment').style.display='none'" class="close" title="Close Modal">&times;</span>
+	  
+    </div>
+  
+    <div class="container">
+	
+      <h1>Add Assessment</h1>
+
+      <label for="currentCourse"><b>Enter the course name or number you wish to update:</b></label>
+      <input type="text" placeholder="Name/Number" name="currentCourse" id='currentCourse' required>
+	  
+	  <label for="assessmentName"><b>Enter the assessment name:</b></label>
+      <input type="text" placeholder="Name" name="assessmentName" id='assessmentName' required>
+	  
+	  <label for="assessmentValue"><b>Enter the percentage value of the assessment:</b></label>
+      <input type="text" placeholder="Percentage" name="assessmentValue" id='assessmentValue' required>
+	  
+	  <label for="assessmentDue"><b>Enter the assessment due date (dd/mm/yyyy):</b></label>
+      <input type="text" placeholder="dd/mm/yyyy" name="assessmentDue" id='assessmentDue' required> 
+	  
+	  <button type="button" onclick="addAssessment()">Add Assessment</button>
+	  
+	</div>
+
+	<div class="container" style="background-color:#f1f1f1">
+
+	  <button type="button" onclick="document.getElementById('AddAssessment').style.display='none'" class="CancelButton">Cancel</button>
+
+	</div>	  
+	
+	</form> 
+</div>
+
+
+<button onclick="document.getElementById('AddGrades').style.display='block'" style="width:auto;">Add Assessment Grade</button><br>
+
+<div id="AddGrades" class="AllModals">
+  
+  <form class="modal-content animate">
+  
+   <div class="imgcontainer">
+   
+      <span onclick="document.getElementById('AddGrades').style.display='none'" class="close" title="Close Modal">&times;</span>
+	  
+    </div>
+  
+    <div class="container">
+	
+      <h1>Add Grade</h1>
+
+      <label for="currentCourse"><b>Enter the course name or number you wish to update:</b></label>
+      <input type="text" placeholder="Name/Number" name="currentCourse" id='currentCourse' required>
+	  
+	  <label for="gradeAssessmentName"><b>Enter the assessment name:</b></label>
+      <input type="text" placeholder="Name" name="gradeAssessmentName" id='gradeAssessmentName' required>
+	  
+	  <label for="assessmentGrade"><b>Enter your grade:</b></label>
+      <input type="text" placeholder="Percentage" name="assessmentGrade" id='assessmentGrade' required>
+	  
+	  <button type="button" onclick="addGrade()">Add Grade</button>
+	  
+	</div>
+
+	<div class="container" style="background-color:#f1f1f1">
+
+	  <button type="button" onclick="document.getElementById('AddGrade').style.display='none'" class="CancelButton">Cancel</button>
+
+	</div>	  
+	
+	</form> 
+</div>
+
+
+<button onclick="document.getElementById('ViewCourses').style.display='block'" style="width:auto;">View Courses</button><br>
+
+<div id="ViewCourses" class="AllModals">
+  
+  <form class="modal-content animate">
+  
+   <div class="imgcontainer">
+   
+      <span onclick="document.getElementById('ViewCourses').style.display='none'" class="close" title="Close Modal">&times;</span>
+	  
+    </div>
+  
+    <div class="container">
+	
+      <h1>Add Grade</h1>
+
+      <label for="currentCourse"><b>Enter the course name or number you to view:</b></label>
+      <input type="text" placeholder="Name/Number" name="currentCourse" id='currentCourse' required>
+	  
+	  <button type="button" onclick="viewCourse()">View Course</button>
+	  
+	</div>
+
+	<div class="container" style="background-color:#f1f1f1">
+
+	  <button type="button" onclick="document.getElementById('ViewCourses').style.display='none'" class="CancelButton">Cancel</button>
+
+	</div>	  
+	
+	</form> 
+</div>
+
+
+<p id="courseDetails"></p>
+<p id="test2"></p>
+<p id="test3"></p>
+<p id="test4"></p>
+<p id="test5"></p>
+
+
+<script>
+	
+	var name;
+	var number;
+	var section;
+	var inst;
+	var course;
+	var courses = new Array();
+	var classes;
+	var details;
+	var assessments;
+	
+	var currCourse;
+	var cType;
+	var cDay;
+	var cStart;
+	var cEnd;
+	var cls;
+	
+	var cGoal;
+	var caPlus;
+	var ca;
+	var caMinus;
+	var cbPlus;
+	var cb;
+	var bMinus;
+	var ccPlus;
+	var cc;
+	var ccMinus;
+	var cd;
+	var cf;
+	var detail;
+	
+	var currCourse;
+	var cName;
+	var cValue;
+	var cDue;
+	var assessment;
+	var grades;
+	
+	var currCourse;
+	var cAssessmentName;
+	var cAssessmentGrade;
+
+function createCourse(){
+
+	name = document.getElementById('courseName').value;
+	number = document.getElementById('courseNumber').value;
+	section = document.getElementById('sectionNumber').value;
+	inst = document.getElementById('instructor').value;
+	classes = new Array();
+	details = new Array();
+	assessments = new Array();
+
+	course = {cName:name, cNumber:number, sNumber:section, instruct:inst, cClasses:classes, cDetails:details, cAssessments:assessments};
+	courses.push(course);
+	
+	document.getElementById('test2').innerHTML = courses[courses.length-1].cName + courses[courses.length-1].cNumber + courses[courses.length-1].sNumber + courses[courses.length-1].instruct + courses.length;
+}
+
+
+function createClass(){
+
+	currCourse = document.getElementById('currentCourse').value;
+	cType = document.getElementById('classType').value;
+	cDay = document.getElementById('classDay').value;
+	cStart = document.getElementById('classStart').value;
+	cEnd = document.getElementById('classEnd').value;
+
+	cls = {clsType:cType, clsDay:cDay, clsStart:cStart, clsEnd:cEnd};
+	courses[0].cClasses.push(cls);
+	
+	/*for (i = 0; i == courses.length; i++){
+		if ((courses[i].cName == currCourse) || (courses[i].cNumber == currCourse)){
+			courses[i].cClasses.push(cls);
+			i = courses.length + 1;
+		}
+		else if (i == courses.length){
+			alert("The course does not exist!");
+		}
+	}*/
+	
+	document.getElementById('test3').innerHTML = cls.clsType + cls.clsDay + cls.clsStart + cls.clsEnd;
+}
+
+function addDetails(){
+
+	currCourse = document.getElementById('currentCourse').value;
+	cGoal = document.getElementById('courseGoal').value;
+	caPlus = document.getElementById('aPlus').value;
+	ca = document.getElementById('a').value;
+	caMinus = document.getElementById('aMinus').value;
+	cbPlus = document.getElementById('bPlus').value;
+	cb = document.getElementById('b').value;
+	cbMinus = document.getElementById('bMinus').value;
+	ccPlus = document.getElementById('cPlus').value;
+	cc = document.getElementById('c').value;
+	ccMinus = document.getElementById('cMinus').value
+	cd = document.getElementById('d').value;
+	cf = document.getElementById('f').value;
+	
+	var detail = {clsGoal:cGoal, clsaPlus:caPlus, clsa:ca, clsaMinus:caMinus, clsbPlus:cbPlus, clsb:cb, clsbMinus:cbMinus, clscPlus:ccPlus, clsc:cc, clscMinus:ccMinus, clsd:cd, clsf:cf};
+	courses[0].cDetails.push(detail);
+	
+	/*for (i = 0; i == courses.length; i++){
+		if ((courses[i].courseName == currCourse) || (courses[i].courseNumber == currCourse)){
+			courses[i].details.push(detail);
+		}
+		else if (i ==courses.length){
+			alert("The course doesn't exist.");
+		}
+	}*/
+	
+	document.getElementById('test4').innerHTML = detail.clsGoal + detail.clsaPlus + detail.clsa + detail.clsaMinus + detail.clsbPlus + detail.clsb + detail.clsbMinus + detail.clscPlus + detail.clsc + detail.clscMinus + detail.clsd + detail.clsf;
+}
+
+function addAssessment(){
+
+	currCourse = document.getElementById('currentCourse').value;
+	cName = document.getElementById('assessmentName').value;
+	cValue = document.getElementById('assessmentValue').value;
+	cDue = document.getElementById('assessmentDue').value;
+	
+	assessment = {clsAssessmentName:cName, clsAssessmentValue:cValue, clsAssessmentDue:cDue, clsGrade:"N/A"};
+	courses[0].cAssessments.push(assessment);
+	
+	/*for (i = 0; i == courses.length; i++){
+		if ((courses[i].courseName == currCourse) || (courses[i].courseNumber)){
+			courses[i].assessments.push(detail);
+		}
+		else if (i ==courses.length){
+			alert("The course doesn't exist.");
+		}
+	}*/
+	
+	document.getElementById('test5').innerHTML = assessment.clsAssessmentName + assessment.clsAssessmentValue + assessment.clsAssessmentDue + assessment.clsGrade;
+}
+
+function addGrade(){
+
+	currCourse = document.getElementById("currentCourse").value;
+	cName = document.getElementById("gradeAssessmentName").value;
+	cAssessmentGrade = document.getElementById("assessmentGrade").value;
+	
+	courses[0].cAssessments[0].clsGrade = cAssessmentGrade;
+	/*for (i = 0; i == courses.length; i++){
+		if ((courses[i].courseName == currCourse) || (courses[i].courseNumber)){
+			courses[i].assessments.push(detail);
+			num = i;			
+			continue;
+		}
+		else if (i ==courses.length){
+			alert("The course doesn't exist.");
+		}
+	}
+	for (j = 0; i == courses[num].assessments.length; j++){
+		if (courses[num].assessments[j].assessmentName == name){
+			courses[num].grades.push(detail);
+			continue;
+		}
+		else if (j == courses[num].assessments.length){
+			alert("The course doesn't exist.");
+		}
+	}*/
+	
+	document.getElementById('test5').innerHTML = assessment.clsAssessmentName + assessment.clsAssessmentValue + assessment.clsAssessmentDue + assessment.clsGrade;
+}
+
+function viewCourse(){
+
+	document.getElementById('courseDetails').innerHTML = "COURSE DETAILS:\n\n\tCourseName: " + courses[0].cName + "\n\tCourse Number: " + courses[0].cNumber 
+	+ "\n\tSection: " + courses[0].sNumber + "\n\tInstructor" + courses[0].instruct 
+	+ "\n\nSCHEDULE:\n\n\t" + courses[0].cClasses[0].clsType + ": " + courses[0].cClasses[0].clsDay + ", " + courses[0].cClasses[0].clsStart + " - " + courses[0].cClasses[0].clsEnd
+	+ "\n\nREQUIREMENTS:\n\n\t" + "A+: " + courses[0].cdetails[0].clsaPlus + "%\n\tA: " + courses[0].cdetails[0].clsa + "%\n\tA-: " + courses[0].cdetails[0].clsaMinus + 
+	"%\n\tB+: " + courses[0].cdetails[0].clsbPlus + "%\n\tB: " + courses[0].cdetails[0].clsb + "%\n\tB-: " + courses[0].cdetails[0].clsbMinus + "%\n\tC+: "
+	+ courses[0].cdetails[0].clscPlus + "%\nC: " + courses[0].cdetails[0].clsc + "%\nC-: " + courses[0].cdetails[0].clscMinus + "%\nD: "
+	+ courses[0].cdetails[0].clsd + "%\n\tF: " + courses[0].cdetails[0].clsf + "\n\n\tGoal: " + courses[0].cDetails[0].clsGoal 
+	+ "\n\nASSESSMENTS:\n\n\t"+ courses[0].cAssessments[0].clsAssessmentName + "\n\t\tValue: " + courses[0].cAssessments[0].clsValue + "\n\t\tGrade: "
+	+ courses[0].cAssessments[0].clsGrade;
+}
+
+
+
+</script>
+</body>
+</html>
