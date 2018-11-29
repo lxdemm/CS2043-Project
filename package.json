@@ -1,0 +1,20 @@
+{
+  "name": "CS2043-Project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lxdemm/CS2043-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lxdemm/CS2043-Project/issues"
+  },
+  "homepage": "https://github.com/lxdemm/CS2043-Project#readme"
+}
