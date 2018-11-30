@@ -35,7 +35,12 @@ const client = new Client({
 });
 client.connect();
 
-client.query('SELECT * FROM public."Student"', (err, res) => {
+const q = {
+  text: 'INSERT INTO public."Student"(firstName, lastName, email, id, username, password) VALUES($1, $2, $3, $4, $5, $6)',
+  values: ['Jane', 'Doe', 'jane@email.com', 1, 'jane_doe', 'password'],
+};
+
+client.query(q, (err, res) => {
   console.log(err,res);
   client.end();
 });
