@@ -31,6 +31,7 @@ pool.query('SELECT * FROM Student', (err, res) => {
 
 const client = new Client({
   connectionString: connectionString,
+  ssl: true,
 });
 client.connect();
 
