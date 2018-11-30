@@ -24,7 +24,7 @@ const pool = new Pool({
   ssl:true,
 });
 
-pool.query('SELECT NOW()'', (err, res) => {
+pool.query('SELECT NOW()', (err, res) => {
   console.log(err,res);
   pool.end();
 });
