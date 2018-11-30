@@ -15,6 +15,30 @@ con.connect(function(err) {
   console.log("Connected!");
 })*/
 
+const { Pool, Client } = require('pg');
+//const connectionString = 'postgresql://dbuser:secretpassword@database.server.com:3211/mydb';
+const connectionString = 'postgres://emtsbrfqpupudx:0469831f945fc9d9acf6989b6418d3d2f46203558f6f11ffcfa9daf1e861c1e5@ec2-54-204-40-248.compute-1.amazonaws.com:5432/d343l27jvbbstv';
+
+const pool = new Pool({
+  connectionString: connectionString,
+  ssl:true,
+});
+
+pool.query('SELECT * FROM Student', (err, res) => {
+  console.log(err,res);
+  pool.end();
+});
+
+const client = new Client({
+  connectionString: connectionString,
+});
+client.connect();
+
+client.query('SELECT * FROM Student', (err, res) => {
+  console.log(err,res);
+  client.end();
+});
+
 http.createServer(function (req, res) {
   var q = url.parse(req.url, true).pathname;
   var signUp = "SignUp.html";

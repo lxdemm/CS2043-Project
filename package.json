@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/lxdemm/CS2043-Project/issues"
   },
-  "homepage": "https://github.com/lxdemm/CS2043-Project#readme"
+  "homepage": "https://github.com/lxdemm/CS2043-Project#readme",
+  "dependencies": {
+    "pg": "^7.7.1"
+  }
 }
