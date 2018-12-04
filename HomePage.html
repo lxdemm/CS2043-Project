@@ -1,1266 +1,279 @@
 <!DOCTYPE html>
+
 <html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="./css/homePage.css">
+		<script src="./js/homePage.js"></script>
+	</head>
 
-<head>
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
-* {box-sizing: border-box;}
-
-/* Full-width input fields */
-input[type=text], input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-
-/* Set a style for all buttons */
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    opacity: 0.9;
-}
-
-button:hover {
-    opacity:1;
-}
-
-/* Extra styles for the cancel buttons */
-.CancelButton {
-    padding: 14px 20px;
-    background-color: #f44336;
-}
-
-/* Center the image and position the close button */
-.imgcontainer {
-    text-align: center;
-    margin: 24px 0 12px 0;
-    position: relative;
-}
-
-/* Add padding to container elements */
-.container {
-    padding: 16px;
-}
-
-span.psw {
-    float: right;
-    padding-top: 16px;
-}
-
-/* The Modal (background) */
-.AllModals {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    padding-top: 60px;
-}
-
-/* Modal Content/Box */
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-}
-
-/* The Close Button (x) */
-.close {
-    position: absolute;
-    right: 25px;
-    top: 0;
-    color: #000;
-    font-size: 35px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: red;
-    cursor: pointer;
-}
-
-/* Add Zoom Animation */
-.animate {
-    -webkit-animation: animatezoom 0.6s;
-    animation: animatezoom 0.6s
-}
-
-@-webkit-keyframes animatezoom {
-    from {-webkit-transform: scale(0)} 
-    to {-webkit-transform: scale(1)}
-}
-    
-@keyframes animatezoom {
-    from {transform: scale(0)} 
-    to {transform: scale(1)}
-}
-
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-    span.psw {
-       display: block;
-       float: none;
-    }
-    .CancelButton {
-       width: 100%;
-    }
-}
-
-
-</style>
-</head>
-<body>
-
-
-<h2>Home Page</h2>
-
-<button onclick="document.getElementById('AddCourse').style.display='block'" style="width:auto;">Add Course</button><br>
-
-<div id="AddCourse" class="AllModals">
-  
-  <form class="modal-content animate">
-  
-   <div class="imgcontainer">
-   
-      <span onclick="document.getElementById('AddCourse').style.display='none'" class="close" title="Close Modal">&times;</span>
-	  
-    </div>
-  
-    <div class="container">
-	
-      <h1>Add Course</h1>
-
-      <label for="cName"><b>Course Name</b></label>
-      <input type="text" placeholder="Course Name" name="cName" id='cName' required>
-	  
-	  <label for="cNumber"><b>Course Number</b></label>
-      <input type="text" placeholder="Course Number" name="cNumber" id='cNumber' required>
-	  
-	  <label for="cSection"><b>Section Number</b></label>
-      <input type="text" placeholder="Section Number" name="cSection" id='cSection' required>
-	  
-	  <label for="cInst"><b>Instructor</b></label>
-      <input type="text" placeholder="Instructor Name" name="cInst" id='cInst' required>
-	  
-	  <button type="button" onclick="createCourse();document.getElementById('AddCourse').style.display='none'">Add Course</button>
-	  
-	</div>
-
-	<div class="container" style="background-color:#f1f1f1">
-
-	  <button type="button" onclick="document.getElementById('AddCourse').style.display='none'" class="CancelButton">Cancel</button>
-
-	</div>	  
-	
-	</form> 
-</div>
-
-
-<button onclick="document.getElementById('AddClass').style.display='block'" style="width:auto;">Add a Class</button><br>
-
-<div id="AddClass" class="AllModals">
-  
-  <form class="modal-content animate">
-  
-   <div class="imgcontainer">
-   
-      <span onclick="document.getElementById('AddClass').style.display='none'" class="close" title="Close Modal">&times;</span>
-	  
-    </div>
-  
-    <div class="container">
-	
-      <h1>Add a Class</h1>
-
-      <label for="curr1"><b>Enter the course name or number you wish to update.</b></label>
-      <input type="text" placeholder="Name/Number" name="curr1" id='curr1' required>
-	  
-	  <label for="cType"><b>Class Type</b></label>
-      <input type="text" placeholder="Type" name="cType" id='cType' required>
-	  
-	  <p><b>Day of Class</b></p>
-      <select name="cDay" id='cDay'>
-		<option value="N/A">Day</option>
-		<option value="Sunday">Sunday</option>
-		<option value="Monday">Monday</option>
-		<option value="Tuesday">Tuesday</option>
-		<option value="Wednesday">Wednesday</option>
-		<option value="Thursday">Thursday</option>
-		<option value="Friday">Friday</option>
-		<option value="Saturday">Saturday</option>
-	  </select>
-	  
-	  <br>
-	  <br>
-	  
-	  <label for="cStart"><b>Start Time.</b></label>
-      <input type="text" placeholder="hh:mmam/pm" name="cStart" id='cStart' required>
-	  
-	  <label for="cEnd"><b>End Time</b></label>
-      <input type="text" placeholder="hh:mmam/pm" name="cEnd" id='cEnd' required>
-	  
-	  <button type="button" onclick="createClass();document.getElementById('AddClass').style.display='none'">Add Class to Schedule</button>
-	  
-	</div>
-
-	<div class="container" style="background-color:#f1f1f1">
-
-	  <button type="button" onclick="document.getElementById('AddClass').style.display='none'" class="CancelButton">Cancel</button>
-
-	</div>	  
-	
-	</form> 
-</div>
-
-
-<button onclick="document.getElementById('AddDetails').style.display='block'" style="width:auto;">Add Course Details</button><br>
-
-<div id="AddDetails" class="AllModals">
-  
-  <form class="modal-content animate">
-  
-   <div class="imgcontainer">
-   
-      <span onclick="document.getElementById('AddDetails').style.display='none'" class="close" title="Close Modal">&times;</span>
-	  
-    </div>
-  
-    <div class="container">
-	
-      <h1>Add Details</h1>
-
-      <label for="curr2"><b>Enter the course name or number you wish to update.</b></label>
-      <input type="text" placeholder="Name/Number" name="curr2" id='curr2' required>
-	  
-	  <label for="cGoal"><b>Enter your letter grade goal.</b></label>
-      <input type="text" placeholder="Letter Grade" name="cGoal" id='cGoal' required>
-	  
-	  <label for="cHours"><b>Enter the course credit hours.</b></label>
-      <input type="text" placeholder="Letter Grade" name="cHours" id='cHours' required>
-	  
-	  <label for="cGrade"><b>Enter your final Grade</b></label>
-      <input type="text" placeholder="percentage" name="cGrade" id='cGrade' required>	 
-	  
-	  <p>Enter the percentage required to achieve each letter grade</p>
-	  
-	  <label for="aP"><b>A+</b></label>
-      <input type="text" placeholder="percentage" name="aP" id='aP' required>
-	  
-	  <label for="a"><b>A</b></label>
-      <input type="text" placeholder="percentage" name="a" id='a' required>		
-	  
-	  <label for="aM"><b>A-</b></label>
-      <input type="text" placeholder="percentage" name="aM" id='aM' required>
-
-	  <label for="bP"><b>B+</b></label>
-      <input type="text" placeholder="percentage" name="bP" id='bP' required>
-
-	  <label for="b"><b>B</b></label>
-      <input type="text" placeholder="percentage" name="b" id='b' required>	  
-	  
-	  <label for="bM"><b>B-</b></label>
-      <input type="text" placeholder="percentage" name="bM" id='bM' required>
-	  
-	  <label for="cP"><b>C+</b></label>
-      <input type="text" placeholder="percentage" name="cP" id='cP' required>		
-	  
-	  <label for="c"><b>C</b></label>
-      <input type="text" placeholder="percentage" name="c" id='c' required>
-
-	  <label for="cM"><b>C-</b></label>
-      <input type="text" placeholder="percentage" name="cM" id='cM' required>
-
-	  <label for="d"><b>D</b></label>
-      <input type="text" placeholder="percentage" name="d" id='d' required>	  
-	  
-	  <label for="f"><b>F</b></label>
-      <input type="text" placeholder="percentage" name="f" id='f' required>	  
-	  
-	  <button type="button" onclick="addDetails();document.getElementById('AddDetails').style.display='none'">Add Details</button>
-	  
-	</div>
-
-	<div class="container" style="background-color:#f1f1f1">
-
-	  <button type="button" onclick="document.getElementById('AddDetails').style.display='none'" class="CancelButton">Cancel</button>
-
-	</div>	  
-	
-	</form> 
-</div>
-
-
-<button onclick="document.getElementById('AddAssessment').style.display='block'" style="width:auto;">Add Assessment</button><br>
-
-<div id="AddAssessment" class="AllModals">
-  
-  <form class="modal-content animate">
-  
-   <div class="imgcontainer">
-   
-      <span onclick="document.getElementById('AddAssessment').style.display='none'" class="close" title="Close Modal">&times;</span>
-	  
-    </div>
-  
-    <div class="container">
-	
-      <h1>Add Assessment</h1>
-
-      <label for="curr3"><b>Enter the course name or number you wish to update:</b></label>
-      <input type="text" placeholder="Name/Number" name="curr3" id='curr3' required>
-	  
-	  <label for="aName"><b>Enter the assessment name:</b></label>
-      <input type="text" placeholder="Name" name="aName" id='aName' required>
-	  
-	  <label for="aValue"><b>Enter the percentage value of the assessment:</b></label>
-      <input type="text" placeholder="Percentage" name="aValue" id='aValue' required>
-	  
-	  <p><b>Enter the assessment due date:</b></p>
-      <select name="day" id='day'>
-		<option value=0>Day</option>
-		<option value=1>01</option>
-		<option value=2>02</option>
-		<option value=3>03</option>
-		<option value=4>04</option>
-		<option value=5>05</option>
-		<option value=6>06</option>
-		<option value=7>07</option>
-		<option value=8>08</option>
-		<option value=9>09</option>
-		<option value=10>10</option>
-		<option value=11>11</option>
-		<option value=12>12</option>
-		<option value=13>13</option>
-		<option value=14>14</option>
-		<option value=15>15</option>
-		<option value=16>16</option>
-		<option value=17>17</option>
-		<option value=18>18</option>
-		<option value=19>19</option>
-		<option value=20>20</option>
-		<option value=21>21</option>
-		<option value=22>22</option>
-		<option value=23>23</option>
-		<option value=24>24</option>
-		<option value=25>25</option>
-		<option value=26>26</option>
-		<option value=27>27</option>
-		<option value=28>28</option>
-		<option value=29>29</option>
-		<option value=30>30</option>
-		<option value=31>31</option>
-	  </select>
-	  <select name="month" id='month'>
-		<option value="N/A">Month</option>
-		<option value=0>January</option>
-		<option value=1>February</option>
-		<option value=2>March</option>
-		<option value=3>April</option>
-		<option value=4>May</option>
-		<option value=5>June</option>
-		<option value=6>July</option>
-		<option value=7>August</option>
-		<option value=8>September</option>
-		<option value=9>October</option>
-		<option value=10>November</option>
-		<option value=11>December</option>
-	  </select>
-	  <select name="year" id='year'>
-		<option value="N/A">Year</option>
-		<option value="2018">2018</option>
-		<option value="2019">2019</option>
-		<option value="2020">2020</option>
-	  </select>
-	  
-	  <button type="button" onclick="addAssessment();document.getElementById('AddAssessment').style.display='none'">Add Assessment</button>
-	  
-	</div>
-
-	<div class="container" style="background-color:#f1f1f1">
-
-	  <button type="button" onclick="document.getElementById('AddAssessment').style.display='none'" class="CancelButton">Cancel</button>
-
-	</div>	  
-	
-	</form> 
-</div>
-
-
-<button onclick="document.getElementById('AddGrades').style.display='block'" style="width:auto;">Add Assessment Grade</button><br>
-
-<div id="AddGrades" class="AllModals">
-  
-  <form class="modal-content animate">
-  
-   <div class="imgcontainer">
-   
-      <span onclick="document.getElementById('AddGrades').style.display='none'" class="close" title="Close Modal">&times;</span>
-	  
-    </div>
-  
-    <div class="container">
-	
-      <h1>Add Grade</h1>
-
-      <label for="curr4"><b>Enter the course name or number you wish to update:</b></label>
-      <input type="text" placeholder="Name/Number" name="curr4" id='curr4' required>
-	  
-	  <label for="aGradeName"><b>Enter the assessment name:</b></label>
-      <input type="text" placeholder="Name" name="aGradeName" id='aGradeName' required>
-	  
-	  <label for="aGrade"><b>Enter your grade:</b></label>
-      <input type="text" placeholder="Percentage" name="aGrade" id='aGrade' required>
-	  
-	  <button type="button" onclick="addGrade();document.getElementById('AddGrades').style.display='none'">Add Grade</button>
-	  
-	</div>
-
-	<div class="container" style="background-color:#f1f1f1">
-
-	  <button type="button" onclick="document.getElementById('AddGrades').style.display='none'" class="CancelButton">Cancel</button>
-
-	</div>	  
-	
-	</form> 
-</div>
-
-
-<button onclick="document.getElementById('ViewCourses').style.display='block'" style="width:auto;">View Courses</button><br>
-
-<div id="ViewCourses" class="AllModals">
-  
-  <form class="modal-content animate">
-  
-   <div class="imgcontainer">
-   
-      <span onclick="document.getElementById('ViewCourses').style.display='none'" class="close" title="Close Modal">&times;</span>
-	  
-    </div>
-  
-    <div class="container">
-	
-      <h1>View Course Details</h1>
-
-      <label for="curr5"><b>Enter the course name or number you wish to view:</b></label>
-      <input type="text" placeholder="Name/Number" name="curr5" id='curr5' required>
-	  
-	  <button type="button" onclick="viewCourse()">View Course</button>
-	  
-	  <p id="outDetails"></p>
-	  <p id="outSched"></p>
-	  <p id="outMon"></p>
-	  <p id="outTues"></p>
-	  <p id="outWed"></p>
-	  <p id="outThurs"></p>
-	  <p id="outFri"></p>
-	  <p id="outAssessments"></p>
-	  <p id="outGoal"></p>
-	  <p id="outProjected"></p>
-	  <p id="outSuggestion"></p>
-	  
-	</div>
-
-	<div class="container" style="background-color:#f1f1f1">
-
-	  <button type="button" onclick="document.getElementById('ViewCourses').style.display='none'" class="CancelButton">Exit</button>
-
-	</div>	  
-	
-	</form> 
-</div>
-
-<button onclick="document.getElementById('ViewGPA').style.display='block';viewGPA()" style="width:auto;">GPA Tracker</button><br>
-
-<div id="ViewGPA" class="AllModals">
-  
-  <form class="modal-content animate">
-  
-   <div class="imgcontainer">
-   
-      <span onclick="document.getElementById('ViewGPA').style.display='none'" class="close" title="Close Modal">&times;</span>
-	  
-    </div>
-  
-    <div class="container">
-	
-      <h1>GPA</h1>
-	  
-	  <p id="outGPA"></p>
-	  
-	</div>
-
-	<div class="container" style="background-color:#f1f1f1">
-
-	  <button type="button" onclick="document.getElementById('ViewGPA').style.display='none'" class="CancelButton">Exit</button>
-
-	</div>	  
-	
-	</form> 
-</div>
-
-<button onclick="document.getElementById('View7').style.display='block';view7()" style="width:auto;">Next 7 Days</button><br>
-
-<div id="View7" class="AllModals">
-  
-  <form class="modal-content animate">
-  
-   <div class="imgcontainer">
-   
-	  <span onclick="document.getElementById('View7').style.display='none'" class="close" title="Close Modal">&times;</span>
-	  
-	</div>
-  
-	<div class="container">
-	
-	  <h1>Next 7 days</h1>
-	  
-	  <p id="day1"></p>
-	  <p id="day2"></p>
-	  <p id="day3"></p>
-	  <p id="day4"></p>
-	  <p id="day5"></p>
-	  <p id="day6"></p>
-	  <p id="day7"></p>
-	  
-	</div>
-
-	<div class="container" style="background-color:#f1f1f1">
-
-	  <button type="button" onclick="document.getElementById('View7').style.display='none'" class="CancelButton">Exit</button>
-
-	</div>	  
-	
-	</form> 
-</div>
-<p id="outCourse"></p>
-<p id="outSchedule"></p>
-<p id="mon"></p>
-<p id="tues"></p>
-<p id="wed"></p>
-<p id="thurs"></p>
-<p id="fri"></p>
-<p id="outDet"></p>
-<p id="outAss"></p>
-
-
-<script>
-	
-	var cName;
-	var cNumber;
-	var cSection;
-	var cInst;
-	var course;
-	var courses = new Array();
-	var cClasses;
-	var cDetails;
-	var cAssessments;
-	
-	var curr1;
-	var clas;
-	var cType;
-	var cDay;
-	var cStart;
-	var cEnd;
-	var clsClasses;
-	
-	var curr2;
-	var cGoal;
-	var cHours;
-	var cGrade;
-	var aP;
-	var a;
-	var aM;
-	var bP;
-	var b;
-	var bM;
-	var cP;
-	var c;
-	var cM;
-	var cd;
-	var cf;
-	var detail;
-	var clsGoal;
-	var clsGrade;
-	var clsHours;
-	var clsaP;
-	var clsa;
-	var clsaM;
-	var clsbP;
-	var clsb;
-	var clsbM;
-	var clscP;
-	var clsc;
-	var clscM;
-	var clsd;
-	var clsf;
-	var clsDetails;
-	
-	var curr3;
-	var aName;
-	var aValue;
-	var aDueDay;
-	var aDueMonth;
-	var aDueYear;
-	var assessment;
-	var clsAssessments;
-	
-	var curr4;
-	var aGradeName;
-	var aGrade;
-	
-	var curr5;
-
-function createCourse(){
-
-	cName = document.getElementById('cName').value;
-	cNumber = document.getElementById('cNumber').value;
-	cSection = document.getElementById('cSection').value;
-	cInst = document.getElementById('cInst').value;
-	cClasses = new Array();
-	cDetails;
-	cAssessments = new Array();
-	
-	if (courses.length == 0){
-		course = {clsName:"Initialize", clsNumber:"", clsSection:"", clsInst:"", clsClasses:cClasses, clsDetails:cDetails, clsAssessments:cAssessments};
-		courses.push(course);
-	}
-
-	if (courses.length > 0){
-		var i = 1;
-		for (i = 1; i <= courses.length; i++){
-			if (i < courses.length && courses[i].clsName == cName){
-				alert("The course already exists!");
-				i = courses.length + 1;
-			}
-			if (i == courses.length){
-				course = {clsName:cName, clsNumber:cNumber, clsSection:cSection, clsInst:cInst, clsClasses:cClasses, clsDetails:cDetails, clsAssessments:cAssessments};
-				courses.push(course);
-				clas = {clsType:"Initialize", clsDay:"", clsStart:"", clsEnd:""};
-				courses[i].clsClasses.push(clas);
-				detail = {clsGoal:"", clsGrade:"", clsHours:"N/A", clsaP:"", clsa:"", clsaM:"", clsbP:"", clsb:"", clsbM:"", clscP:"", clsc:"", clscM:"", clsd:"", clsf:""};
-				courses[i].clsDetails = detail;
-				assessment = {clsAName:"Initialize", clsAValue:"", clsADueDay:"", clsADueMonth:"", clsADueYear:"", clsAGrade:"N/A"};
-				courses[i].clsAssessments.push(assessment);
-				i = courses.length + 1;
-			}
-		}
-	}
-	
-	var str = "COURSES<br><br>";
-	i = 1;
-	for (i = 1; i < courses.length; i++){
-		str = str + courses[i].clsName + courses[i].clsNumber + courses[i].clsSection + courses[i].clsInst + "<br>";
-	}
-	document.getElementById('outCourse').innerHTML = str;
-}
-
-
-function createClass(){
-
-	curr1 = document.getElementById('curr1').value;
-	cType = document.getElementById('cType').value;
-	cDay = document.getElementById('cDay').value;
-	cStart = document.getElementById('cStart').value;
-	cEnd = document.getElementById('cEnd').value;
-
-	clas = {clsType:cType, clsDay:cDay, clsStart:cStart, clsEnd:cEnd};
-	
-	var i = 1;
-	var j = 1;
-	for (i = 1; i <= courses.length; i++){
-		if (i == courses.length){
-			alert("The course does not exist!");
-			i = courses.length + 1;
-		}
-		if ((courses[i].clsName == curr1) || (courses[i].clsNumber == curr1)){
-			for (j = 1; j <= courses[i].clsClasses.length; j++){
-				if (j < courses[i].clsClasses.length && courses[i].clsClasses[j].clsType == cType && courses[i].clsClasses[j].clsDay == cDay && courses[i].clsClasses[j].clsStart == cStart && courses[i].clsClasses[j].clsEnd == cEnd){
-					alert("That class is already on your schedule");
-					j = courses[i].clsClasses.length + 1;
-				}
-				if (j == courses[i].clsClasses.length){
-					courses[i].clsClasses.push(clas);
-					j = courses[i].clsClasses.length + 1;
-				}
-			}
-			i = courses.length + 1;			
-		}
-	}
-	
-	document.getElementById('outSchedule').innerHTML = "<br>SCHEDULE";
-	
-	var strMon = "Monday:<br>";
-	var strTues = "Tuesday:<br>";
-	var strWed = "Wednesday:<br>";
-	var strThurs = "Thursday:<br>";
-	var strFri = "Friday:<br>";
-	
-	i = 1;
-	j = 1;
-	for (i = 1; i < courses.length; i++){
-		for (j = 1; j < courses[i].clsClasses.length; j++){
-			if (courses[i].clsClasses[j].clsDay == "Monday"){
-				strMon = strMon + courses[i].clsName + ": " + courses[i].clsClasses[j].clsType + " " + courses[i].clsClasses[j].clsStart + " - " + courses[i].clsClasses[j].clsEnd + "<br>";}
-			else if (courses[i].clsClasses[j].clsDay == "Tuesday"){
-				strTues = strTues + courses[i].clsName + ": " + courses[i].clsClasses[j].clsType + " " + courses[i].clsClasses[j].clsStart + " - " + courses[i].clsClasses[j].clsEnd + "<br>";}
-			else if (courses[i].clsClasses[j].clsDay == "Wednesday"){
-				strWed = strWed + courses[i].clsName + ": " + courses[i].clsClasses[j].clsType + " " + courses[i].clsClasses[j].clsStart + " - " + courses[i].clsClasses[j].clsEnd + "<br>";}
-			else if (courses[i].clsClasses[j].clsDay == "Thursday"){
-				strThurs = strThurs + courses[i].clsName + ": " + courses[i].clsClasses[j].clsType + " " + courses[i].clsClasses[j].clsStart + " - " + courses[i].clsClasses[j].clsEnd + "<br>";}
-			else if (courses[i].clsClasses[j].clsDay == "Friday"){
-				strFri = strFri + courses[i].clsName + ": " + courses[i].clsClasses[j].clsType + " " + courses[i].clsClasses[j].clsStart + " - " + courses[i].clsClasses[j].clsEnd + "<br>";}
-			else {}
-		}
-	}
-	document.getElementById('mon').innerHTML = strMon;
-	document.getElementById('tues').innerHTML = strTues;
-	document.getElementById('wed').innerHTML = strWed;
-	document.getElementById('thurs').innerHTML = strThurs;
-	document.getElementById('fri').innerHTML = strFri;
-}
-
-function addDetails(){
-
-	curr2 = document.getElementById('curr2').value;
-	cGoal = document.getElementById('cGoal').value;
-	cHours = parseInt(document.getElementById('cHours').value);
-	cGrade = document.getElementById('cGrade').value;
-	aP = parseInt(document.getElementById('aP').value);
-	a = parseInt(document.getElementById('a').value);
-	aM = parseInt(document.getElementById('aM').value);
-	bP = parseInt(document.getElementById('bP').value);
-	b = parseInt(document.getElementById('b').value);
-	bM = parseInt(document.getElementById('bM').value);
-	cP = parseInt(document.getElementById('cP').value);
-	c = parseInt(document.getElementById('c').value);
-	cM = parseInt(document.getElementById('cM').value);
-	d = parseInt(document.getElementById('d').value);
-	f = parseInt(document.getElementById('f').value);
-	
-	detail = {clsGoal:cGoal, clsGrade:cGrade, clsHours:cHours, clsaP:aP, clsa:a, clsaM:aM, clsbP:bP, clsb:b, clsbM:bM, clscP:cP, clsc:c, clscM:cM, clsd:d, clsf:f};
-
-	var i = 1;
-	for (i = 1; i <= courses.length; i++){
-		if (i == courses.length){
-			alert("The course doesn't exist.");
-			i = courses.length + 1;
-		}
-		if ((courses[i].clsName == curr2) || (courses[i].clsNumber == curr2)){
-			courses[i].clsDetails = detail;
-			i = courses.length + 1;
-		}
-	}
-	
-	var strDet = "DETAILS<br><br>";
-	i = 1;
-	for (i = 1; i < courses.length; i++){
-		strDet = strDet + courses[i].clsName + ": " + courses[i].clsDetails.clsGoal + courses[i].clsDetails.clsaP + courses[i].clsDetails.clsa 
-						+ courses[i].clsDetails.clsaM + courses[i].clsDetails.clsbP + courses[i].clsDetails.clsb 
-						+ courses[i].clsDetails.clsbM + courses[i].clsDetails.clscP + courses[i].clsDetails.clsc 
-						+ courses[i].clsDetails.clscM + courses[i].clsDetails.clsd + courses[i].clsDetails.clsf + "<br>";
-	}
-	document.getElementById('outDet').innerHTML = strDet;
-}
-
-function addAssessment(){
-
-	curr3 = document.getElementById('curr3').value;
-	aName = document.getElementById('aName').value;
-	aValue = parseInt(document.getElementById('aValue').value);
-	aDueDay = document.getElementById('day').value;
-	aDueMonth = document.getElementById('month').value;
-	aDueYear = document.getElementById('year').value;
-	
-	assessment = {clsAName:aName, clsAValue:aValue, clsADueDay:aDueDay, clsADueMonth:aDueMonth, clsADueYear:aDueYear, clsAGrade:"N/A"};
-	
-	var i = 1;
-	var j = 1;
-	for (i = 1; i <= courses.length; i++){
-		if (i == courses.length){
-			alert("The course doesn't exist.");
-			i = courses.length + 1;
-		}
-		if ((courses[i].clsName == curr3) || (courses[i].clsNumber == curr3)){
-			for (j = 1; j <= courses[i].clsAssessments.length; j++){
-				if (j < courses[i].clsAssessments.length && courses[i].clsAssessments[j].clsAName == aName){
-					alert("The Assessment already exists.");
-					j = courses[i].clsAssessments.length + 1;
-				}
-				if (j == courses[i].clsAssessments.length){
-					courses[i].clsAssessments.push(assessment);
-					j = courses[i].clsAssessments.length + 1;
-				}
-			}
-			i = courses.length + 1;
-		}
-	}	
-	var strAss = "<br>ASSESSMENTS<br>";
-	i = 1;
-	j = 1;
-	for (i = 1; i < courses.length; i++){
-		strAss = strAss + "<br>" + courses[i].clsName + ":<br>";
-		for (j = 1; j < courses[i].clsAssessments.length; j++){
-			if (courses[i].clsAssessments[j].clsAName){
-				strAss = strAss + courses[i].clsAssessments[j].clsAName + ": Due " + courses[i].clsAssessments[j].clsADueMonth + ", " + courses[i].clsAssessments[j].clsADueDay + ", " 
-								+ courses[i].clsAssessments[j].clsADueYear + ", Value " 
-								+ courses[i].clsAssessments[j].clsAValue + "%, Grade " + courses[i].clsAssessments[j].clsAGrade + "%<br>";
-			}
-		}
-	}	
-	document.getElementById('outAss').innerHTML = strAss;
-}
-
-function addGrade(){
-
-	curr4 = document.getElementById('curr4').value;
-	aGradeName = document.getElementById('aGradeName').value;
-	aGrade = parseInt(document.getElementById("aGrade").value);
-	
-	var i = 1;
-	var j = 1;
-	for (i = 1; i <= courses.length; i++) {
-		if (i == courses.length){
-			alert("The course doesn't exist.");
-			i = courses.length + 1;
-		}
-		if ((courses[i].clsName == curr4) || (courses[i].clsNumber == curr4)) {
-			for (j = 1; j <= courses[i].clsAssessments.length; j++) {
-				if (j == courses[i].clsAssessments.length) {
-					alert("The assessment does not exist");
-					j = courses[i].clsAssessments.length + 1;
-				}
-				if (courses[i].clsAssessments[j].clsAName == aGradeName) {
-					courses[i].clsAssessments[j].clsAGrade = aGrade;
-					j = courses[i].clsAssessments.length + 1;
-				}
-			}
-			i = courses.length + 1;	
-		}
-	}
-	
-	var strAss = "<br>ASSESSMENTS<br>";
-	i = 1;
-	j = 1;
-	for (i = 1; i < courses.length; i++){
-		strAss = strAss + "<br>" + courses[i].clsName + ":<br>";
-		for (j = 1; j < courses[i].clsAssessments.length; j++){
-			if (courses[i].clsAssessments[j].clsAName){
-				strAss = strAss + courses[i].clsAssessments[j].clsAName + ": Due " + courses[i].clsAssessments[j].clsADueMonth + ", " + courses[i].clsAssessments[j].clsADueDay + ", " 
-								+ courses[i].clsAssessments[j].clsADueYear + ", Value " 
-								+ courses[i].clsAssessments[j].clsAValue + "%, Grade " + courses[i].clsAssessments[j].clsAGrade + "%<br>";
-			}
-		}
-	}	
-	document.getElementById('outAss').innerHTML = strAss;
-}
-
-function viewCourse(){
-
-	curr5 = document.getElementById('curr5').value;
-	var det = "";
-	
-	var i = 1;
-	for (i = 1; i <= courses.length; i++) {
-		if (i == courses.length){
-			alert("The course does not exist");
-			i = courses.length + 1;
-		}
-		if ((courses[i].clsName == curr5) || (courses[i].clsNumber == curr5)) {
-			det = det + "DETAILS<br><br>Course Name: " + courses[i].clsName + "<br>Course Number: " + courses[i].clsNumber
-				  + "<br>Section Number: " + courses[i].clsSection + "<br>Instructor: " + courses[i].clsInst + "<br>";
-			i = courses.length + 1;
-		}
-	}	
-	
-	var viewMon = "Monday:<br>";
-	var viewTues = "Tuesday:<br>";
-	var viewWed = "Wednesday:<br>";
-	var viewThurs = "Thursday:<br>";
-	var viewFri = "Friday:<br>";
-	
-	i = 1;
-	var j = 1;
-	for (i = 1; i < courses.length; i++){
-		if ((courses[i].clsName == curr5) || (courses[i].clsNumber == curr5)) {
-			for (j = 1; j < courses[i].clsClasses.length; j++){
-				if (courses[i].clsClasses[j].clsDay == "Monday"){
-					viewMon = viewMon + courses[i].clsName + ": " + courses[i].clsClasses[j].clsType + " " + courses[i].clsClasses[j].clsStart + " - " + courses[i].clsClasses[j].clsEnd + "<br>";}
-				else if (courses[i].clsClasses[j].clsDay == "Tuesday"){
-					viewTues = viewTues + courses[i].clsName + ": " + courses[i].clsClasses[j].clsType + " " + courses[i].clsClasses[j].clsStart + " - " + courses[i].clsClasses[j].clsEnd + "<br>";}
-				else if (courses[i].clsClasses[j].clsDay == "Wednesday"){
-					viewWed = viewWed + courses[i].clsName + ": " + courses[i].clsClasses[j].clsType + " " + courses[i].clsClasses[j].clsStart + " - " + courses[i].clsClasses[j].clsEnd + "<br>";}
-				else if (courses[i].clsClasses[j].clsDay == "Thursday"){
-					viewThurs = viewThurs + courses[i].clsName + ": " + courses[i].clsClasses[j].clsType + " " + courses[i].clsClasses[j].clsStart + " - " + courses[i].clsClasses[j].clsEnd + "<br>";}
-				else if (courses[i].clsClasses[j].clsDay == "Friday"){
-					viewFri = viewFri + courses[i].clsName + ": " + courses[i].clsClasses[j].clsType + " " + courses[i].clsClasses[j].clsStart + " - " + courses[i].clsClasses[j].clsEnd + "<br>";}
-				else {}
-			}
-			i = courses.length + 1;
-		}
-	}
-	
-	var viewAss = "<br>ASSESSMENTS<br>";
-	
-	i = 1;
-	j = 1;
-	for (i = 1; i < courses.length; i++){
-		if ((courses[i].clsName == curr5) || (courses[i].clsNumber == curr5)) {
-			viewAss = viewAss + "<br>" + courses[i].clsName + ":<br>";
-			for (j = 1; j < courses[i].clsAssessments.length; j++){
-				viewAss = viewAss + courses[i].clsAssessments[j].clsAName + ": Due " + courses[i].clsAssessments[j].clsADueMonth + ", " + courses[i].clsAssessments[j].clsADueDay + ", " 
-								+ courses[i].clsAssessments[j].clsADueYear + ", Value " 
-								+ courses[i].clsAssessments[j].clsAValue + "%, Grade " + courses[i].clsAssessments[j].clsAGrade + "%<br>";
-			}
-			i = courses.length + 1;
-		}
-	}
-	
-	var viewGoal = "COURSE GOAL<br><br>";
-	i = 1;
-	for (i = 1; i < courses.length; i++){
-		if ((courses[i].clsName == curr5) || (courses[i].clsNumber == curr5)) {
-			viewGoal = viewGoal + courses[i].clsDetails.clsGoal + "<br>";
-			i = courses.length + 1;
-		}
-	}
-	
-	var progress = 0;
-	var track = 0;
-	var projPer = 0;
-	var projLetter = "";
-	var perGoal = 0;
-	var suggestion = 0;
-
-	
-	i = 1;
-	j = 1;
-	for (i = 1; i < courses.length; i++){
-		if ((courses[i].clsName == curr5) || (courses[i].clsNumber == curr5)) {
-			for (j = 1; j < courses[i].clsAssessments.length; j++){
-				if (courses[i].clsAssessments[j].clsAGrade != "N/A"){
-					progress = progress + courses[i].clsAssessments[j].clsAValue;
-					track = track + ((courses[i].clsAssessments[j].clsAGrade)*(courses[i].clsAssessments[j].clsAValue))/100;
-				}
-			}
-			i = courses.length + 1;
-		}
-	}
-	 if (progress == 100){
-		projPer = track;
-	}
-	else if (progress < 100){
-		projPer = ((100*track)/progress);
-	}
-	
-	i = 1;
-	for (i = 1; i < courses.length; i++){
-		if ((courses[i].clsName == curr5) || (courses[i].clsNumber == curr5)) {
-			if (courses[i].clsDetails.clsGoal == "A+"){
-				perGoal = courses[i].clsDetails.clsaP;}
-			else if (courses[i].clsDetails.clsGoal == "A"){
-				perGoal = courses[i].clsDetails.clsa;}
-			else if (courses[i].clsDetails.clsGoal == "A-"){
-				perGoal = courses[i].clsDetails.clsaM;}
-			else if (courses[i].clsDetails.clsGoal == "B+"){
-				perGoal = courses[i].clsDetails.clsbP;}
-			else if (courses[i].clsDetails.clsGoal == "B"){
-				perGoal = courses[i].clsDetails.clsb;}
-			else if (courses[i].clsDetails.clsGoal == "B-"){
-				perGoal = courses[i].clsDetails.clsbM;}
-			else if (courses[i].clsDetails.clsGoal == "C+"){
-				perGoal = courses[i].clsDetails.clscP;}
-			else if (courses[i].clsDetails.clsGoal == "C"){
-				perGoal = courses[i].clsDetails.clsc;}
-			else if (courses[i].clsDetails.clsGoal == "C-"){
-				perGoal = courses[i].clsDetails.clscM;}
-			else if (courses[i].clsDetails.clsGoal == "D"){
-				perGoal = courses[i].clsDetails.clsd;}
-			else if (courses[i].clsDetails.clsGoal == "F"){
-				perGoal = courses[i].clsDetails.clsf;}
-			i = courses.length + 1;
-		}
-	}
-	
-	i = 1;
-	for (i = 1; i < courses.length; i++){
-		if ((courses[i].clsName == curr5) || (courses[i].clsNumber == curr5)) {
-			if (projPer >= courses[i].clsDetails.clsaP){
-				projLetter = "A+";}
-			else if (projPer >= courses[i].clsDetails.clsa){
-				projLetter = "A";}
-			else if (projPer >= courses[i].clsDetails.clsaM){
-				projLetter = "A-";}
-			else if (projPer >= courses[i].clsDetails.clsbP){
-				projLetter = "B+";}
-			else if (projPer >= courses[i].clsDetails.clsb){
-				projLetter = "B";}
-			else if (projPer >= courses[i].clsDetails.clsbM){
-				projLetter = "B-";}
-			else if (projPer >= courses[i].clsDetails.clscP){
-				projLetter = "C+";}
-			else if (projPer >= courses[i].clsDetails.clsc){
-				projLetter = "C";}
-			else if (projPer >= courses[i].clsDetails.clscM){
-				projLetter = "C-";}
-			else if (projPer >= courses[i].clsDetails.clsd){
-				projLetter = "D";}
-			else if (projPer < courses[i].clsDetails.clsd){
-				projLetter = "F";}
-		}
-		i = courses.length + 1;
-	}
-	suggestion = ((100*perGoal-(projPer*progress))/(100-progress));
-	
-	var strSugg = "";
-	
-	if (projPer >= perGoal){
-		strSugg = strSugg + "You are on track to reach your achieve your goal!";
-	}
-	else if (projPer < perGoal){
-		strSugg = strSugg + "You must average " + suggestion + "% on your remaining assessments to achieve your goal";
-	}
-
-	document.getElementById('outDetails').innerHTML = det;
-	document.getElementById('outSched').innerHTML = "<br>SCHEDULE";
-	document.getElementById('outMon').innerHTML = viewMon;
-	document.getElementById('outTues').innerHTML = viewTues;
-	document.getElementById('outWed').innerHTML = viewWed;
-	document.getElementById('outThurs').innerHTML = viewThurs;
-	document.getElementById('outFri').innerHTML = viewFri;
-	document.getElementById('outAssessments').innerHTML = viewAss;
-	document.getElementById('outGoal').innerHTML = viewGoal;
-	document.getElementById('outProjected').innerHTML = "PROJECTED GRADE<br><br>" + projPer + "(" + projLetter + ")";
-	document.getElementById('outSuggestion').innerHTML = "SUGGESTION<br><br>" + strSugg;
-}
-
-function viewGPA(){
-
-	document.getElementById('outGPA').innerHTML = "h";
-	
-	var creditHours = 0;
-	var credits = 0;
-	var GPA = 0;
-	
-	var i = 1;
-	for (i = 1; i < courses.length; i++){
-		if (courses[i].clsDetails.clsGrade != "N/A"){
-			creditHours = creditHours + courses[i].clsDetails.clsHours;
-			if(courses[i].clsDetails.clsGrade == "A+"){
-				credits = credits + courses[i].clsDetails.clsHours*4.0;}
-			else if(courses[i].clsDetails.clsGrade == "A"){
-				credits = credits + courses[i].clsDetails.clsHours*3.7;}
-			else if(courses[i].clsDetails.clsGrade == "A-"){
-				credits = credits + courses[i].clsDetails.clsHours*3.4;}
-			else if(courses[i].clsDetails.clsGrade == "B+"){
-				credits = credits + courses[i].clsDetails.clsHours*3.1;}
-			else if(courses[i].clsDetails.clsGrade == "B"){
-				credits = credits + courses[i].clsDetails.clsHours*2.8;}
-			else if(courses[i].clsDetails.clsGrade == "B-"){
-				credits = credits + courses[i].clsDetails.clsHours*2.5;}
-			else if(courses[i].clsDetails.clsGrade == "C+"){
-				credits = credits + courses[i].clsDetails.clsHours*4.0;}
-			else if(courses[i].clsDetails.clsGrade == "C"){
-				credits = credits + courses[i].clsDetails.clsHours*4.0;}
-			else if(courses[i].clsDetails.clsGrade == "C-"){
-				credits = credits + courses[i].clsDetails.clsHours*4.0;}
-			else if(courses[i].clsDetails.clsGrade == "D"){
-				credits = credits + courses[i].clsDetails.clsHours*2.0;}
-			else if(courses[i].clsDetails.clsGrade == "F"){
-				credits = credits + 0;}
-		}
-	}
-	GPA = credits/creditHours;
-	document.getElementById('outGPA').innerHTML = GPA;
-}
-
-function view7(){
-
-	var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "November", "December"];
-	var day = (new Date()).getDate();
-	var day1 = (new Date()).getDay();
-	var dayName1 = days[day1];
-	var dayName2 = "";
-	var dayName3 = "";
-	var dayName4 = "";
-	var dayName5 = "";
-	var dayName6 = "";
-	var dayName7 = "";
-	var month = (new Date()).getMonth();
-	var month1 = months[month];
-	var year = (new Date()).getFullYear();
-	var strDay1 = "";
-	var strDay2 = "";
-	var strDay3 = "";
-	var strDay4 = "";
-	var strDay5 = "";
-	var strDay6 = "";
-	var strDay7 = "";
-	
-	strDay1 = dayName1 + ", " + month1 + " " + day + ", " + year + "<br>Classes:<br>";;
-	if (day1+1 < 7){
-		dayName2 = days[day1+1];
-		strDay2 = dayName2 + ", " + month1 + " " + (day+1) + ", " + year + "<br>Classes:<br>";
-	}
-	else if (day1+1 >= 7){
-		dayName2 = days[day1-6];
-		strDay2 = dayName2 + ", " + month1 + " " + (day+1) + ", " + year + "<br>Classes:<br>";
-	}
-	if (day1+2 < 7){
-		dayName3 = days[day1+2];
-		strDay3 = dayName3 + ", " + month1 + " " + (day+2) + ", " + year + "<br>Classes:<br>";
-	}
-	else if (day1+2 >= 7){
-		dayName3 = days[day1-5];
-		strDay3 = dayName3 + ", " + month1 + " " + (day+2) + ", " + year + "<br>Classes:<br>";
-	}
-	if (day1+3 < 7){
-		dayName4 = days[day1+3];
-		strDay4 = dayName4 + ", " + month1 + " " + (day+3) + ", " + year + "<br>Classes:<br>";
-	}
-	else if (day1+3 >= 7){
-		dayName4 = days[day1-4];
-		strDay4 = dayName4 + ", " + month1 + " " + (day+3) + ", " + year + "<br>Classes:<br>";
-	}
-	if (day1+4 < 7){
-		dayName5 = days[day1+4];
-		strDay5 = dayName5 + ", " + month1 + " " + (day+4) + ", " + year + "<br>Classes:<br>";
-	}
-	else if (day1+4 >= 7){
-		dayName5 = days[day1-3];
-		strDay5 = dayName5 + ", " + month1 + " " + (day+4) + ", " + year + "<br>Classes:<br>";
-	}
-	if (day1+5 < 7){
-		dayName6 = days[day1+5];
-		strDay6 = dayName6 + ", " + month1 + " " + (day+5) + ", " + year + "<br>Classes:<br>";
-	}
-	else if (day1+5 >= 7){
-		dayName6 = days[day1-2];
-		strDay6 = dayName6 + ", " + month1 + " " + (day+5) + ", " + year + "<br>Classes:<br>";
-	}
-	if (day1+6 < 7){
-		dayName7 = days[day1+6];
-		strDay7 = dayName7 + ", " + month1 + " " + (day+6) + ", " + year + "<br>Classes:<br>";
-	}
-	else if (day1+6 >= 7){
-		dayName7 = days[day1-1];
-		strDay7 = dayName7 + ", " + month1 + " " + (day+6) + ", " + year + "<br>Classes:<br>";
-	}
-	
-	var i = 1;
-	var j = 1;
-	for (i = 1; i < courses.length; i++){
-		for (j = 1; j < courses[i].clsClasses.length; j++){
-			if (courses[i].clsClasses[j].clsDay == dayName1){
-				strDay1 = strDay1 + courses[i].clsName + ": " + courses[i].clsClasses[j].clsType + " " + courses[i].clsClasses[j].clsStart + " - " + courses[i].clsClasses[j].clsEnd + "<br>";}
-			else if (courses[i].clsClasses[j].clsDay == dayName2){
-				strDay2 = strDay2 + courses[i].clsName + ": " + courses[i].clsClasses[j].clsType + " " + courses[i].clsClasses[j].clsStart + " - " + courses[i].clsClasses[j].clsEnd + "<br>";}
-			else if (courses[i].clsClasses[j].clsDay == dayName3){
-				strDay3 = strDay3 + courses[i].clsName + ": " + courses[i].clsClasses[j].clsType + " " + courses[i].clsClasses[j].clsStart + " - " + courses[i].clsClasses[j].clsEnd + "<br>";}
-			else if (courses[i].clsClasses[j].clsDay == dayName4){
-				strDay4 = strDay4 + courses[i].clsName + ": " + courses[i].clsClasses[j].clsType + " " + courses[i].clsClasses[j].clsStart + " - " + courses[i].clsClasses[j].clsEnd + "<br>";}
-			else if (courses[i].clsClasses[j].clsDay == dayName5){
-				strDay5 = strDay5 + courses[i].clsName + ": " + courses[i].clsClasses[j].clsType + " " + courses[i].clsClasses[j].clsStart + " - " + courses[i].clsClasses[j].clsEnd + "<br>";}
-			else if (courses[i].clsClasses[j].clsDay == dayName6){
-				strDay6 = strDay6 + courses[i].clsName + ": " + courses[i].clsClasses[j].clsType + " " + courses[i].clsClasses[j].clsStart + " - " + courses[i].clsClasses[j].clsEnd + "<br>";}
-			else if (courses[i].clsClasses[j].clsDay == dayName7){
-				strDay7 = strDay7 + courses[i].clsName + ": " + courses[i].clsClasses[j].clsType + " " + courses[i].clsClasses[j].clsStart + " - " + courses[i].clsClasses[j].clsEnd + "<br>";}
-			else {}
-		}
-	}
-	
-	strDay1 = strDay1 + "Assessments:<br>";
-	strDay2 = strDay2 + "Assessments:<br>";
-	strDay3 = strDay3 + "Assessments:<br>";
-	strDay4 = strDay4 + "Assessments:<br>";
-	strDay5 = strDay5 + "Assessments:<br>";
-	strDay6 = strDay6 + "Assessments:<br>";
-	strDay7 = strDay7 + "Assessments:<br>";
-	
-	i = 1;
-	j = 1;
-	for (i = 1; i < courses.length; i++){
-		for (j = 1; j < courses[i].clsClasses.length; j++){
-			if (courses[i].clsAssessments[j].clsADueMonth == month && courses[i].clsAssessments[j].clsADueDay == day){
-				strDay1 = strDay1 + courses[i].clsName + ": " + courses[i].clsAssessments[j].clsAName + ", Value: " + courses[i].clsAssessments[j].clsAValue + "%<br>";}
-			else if (courses[i].clsAssessments[j].clsADueMonth == month && courses[i].clsAssessments[j].clsADueDay == day+1){
-				strDay2 = strDay2 + courses[i].clsName + ": " + courses[i].clsAssessments[j].clsAName + ", Value: " + courses[i].clsAssessments[j].clsAValue + "%<br>";}
-			else if (courses[i].clsAssessments[j].clsADueMonth == month && courses[i].clsAssessments[j].clsADueDay == day+2){
-				strDay3 = strDay3 + courses[i].clsName + ": " + courses[i].clsAssessments[j].clsAName + ", Value: " + courses[i].clsAssessments[j].clsAValue + "%<br>";}
-			else if (courses[i].clsAssessments[j].clsADueMonth == month && courses[i].clsAssessments[j].clsADueDay == day+3){
-				strDay4 = strDay4 + courses[i].clsName + ": " + courses[i].clsAssessments[j].clsAName + ", Value: " + courses[i].clsAssessments[j].clsAValue + "%<br>";}
-			else if (courses[i].clsAssessments[j].clsADueMonth == month && courses[i].clsAssessments[j].clsADueDay == day+4){
-				strDay5 = strDay5 + courses[i].clsName + ": " + courses[i].clsAssessments[j].clsAName + ", Value: " + courses[i].clsAssessments[j].clsAValue + "%<br>";}
-			else if (courses[i].clsAssessments[j].clsADueMonth == month && courses[i].clsAssessments[j].clsADueDay == day+5){
-				strDay6 = strDay6 + courses[i].clsName + ": " + courses[i].clsAssessments[j].clsAName + ", Value: " + courses[i].clsAssessments[j].clsAValue + "%<br>";}
-			else if (courses[i].clsAssessments[j].clsADueMonth == month && courses[i].clsAssessments[j].clsADueDay == day+6){
-				strDay7 = strDay7 + courses[i].clsName + ": " + courses[i].clsAssessments[j].clsAName + ", Value: " + courses[i].clsAssessments[j].clsAValue + "%<br>";}
-			else {}
-		}
-	}
-	
-	document.getElementById('day1').innerHTML = strDay1;
-	document.getElementById('day2').innerHTML = strDay2;
-	document.getElementById('day3').innerHTML = strDay3;
-	document.getElementById('day4').innerHTML = strDay4;
-	document.getElementById('day5').innerHTML = strDay5;
-	document.getElementById('day6').innerHTML = strDay6;
-	document.getElementById('day7').innerHTML = strDay7;
-}
-	
-var m1 = document.getElementById('AddCourse');
-var m2 = document.getElementById('AddClass');
-var m3 = document.getElementById('AddDetails');
-var m4 = document.getElementById('AddAssessment');
-var m5 = document.getElementById('AddGrades');
-var m6 = document.getElementById('ViewCourses');
-var m7 = document.getElementById('ViewGPA');
-var m10 = document.getElementById('View7');
-
-window.onclick = function(event) {
-    if (event.target == m1) {
-        m1.style.display = "none";
-    }
-	else if (event.target == m2) {
-        m2.style.display = "none";
-    }
-	else if (event.target == m3) {
-        m3.style.display = "none";
-    }
-	else if (event.target == m4) {
-        m4.style.display = "none";
-    }
-	else if (event.target == m5) {
-        m5.style.display = "none";
-    }
-	else if (event.target == m6) {
-        m6.style.display = "none";
-    }
-	else if (event.target == m7) {
-        m7.style.display = "none";
-    }
-	else if (event.target == m10) {
-        m10.style.display = "none";
-    }
-}
-
-
-
-</script>
-</body>
+	<body onload="checkCookie()">
+		<button onclick="logOut()" style="width:auto; float:right;">Log Out</button>
+		<h2>Home Page</h2>		
+		
+		<button onclick="document.getElementById('AddCourse').style.display='block'" style="width:auto;">Add Course</button><br>
+
+		<div id="AddCourse" class="AllModals">
+
+			<div class="modal-content animate">
+
+				<div class="imgcontainer">
+					<span onclick="document.getElementById('AddCourse').style.display='none'" class="close" title="Close Modal">&times;</span>
+				</div>
+
+				<div class="container">
+					<h1>Add Course</h1>
+
+					<label for="cName"><b>Course Name</b></label>
+					<input type="text" placeholder="Course Name" name="cName" id='cName' required>
+
+					<label for="cNumber"><b>Course Number</b></label>
+					<input type="text" placeholder="Course Number" name="cNumber" id='cNumber' required>
+
+					<label for="cSection"><b>Section Number</b></label>
+					<input type="text" placeholder="Section Number" name="cSection" id='cSection' required>
+
+					<label for="cInst"><b>Instructor</b></label>
+					<input type="text" placeholder="Instructor Name" name="cInst" id='cInst' required>
+
+					<button type="button" onclick="createCourse();document.getElementById('AddCourse').style.display='none'">Add Course</button>
+				</div>
+
+				<div class="container" style="background-color:#f1f1f1">
+					<button type="button" onclick="document.getElementById('AddCourse').style.display='none'" class="CancelButton">Cancel</button>
+				</div>
+			</div>
+		</div>
+
+		<button onclick="document.getElementById('AddClass').style.display='block'" style="width:auto;">Add a Class</button><br>
+
+		<div id="AddClass" class="AllModals">
+			<div class="modal-content animate">
+				<div class="imgcontainer">
+					<span onclick="document.getElementById('AddClass').style.display='none'" class="close" title="Close Modal">&times;</span>
+				</div>
+
+				<div class="container">
+					<h1>Add a Class</h1>
+
+					<label for="curr1"><b>Enter the course name or number you wish to update.</b></label>
+					<input type="text" placeholder="Name/Number" name="curr1" id='curr1' required>
+
+					<label for="cType"><b>Class Type</b></label>
+					<input type="text" placeholder="Type" name="cType" id='cType' required>
+
+					<label for="cDay"><b>Day of Class</b></label>
+					<input type="text" placeholder="Day" name="cDay" id='cDay' required>
+
+					<label for="cStart"><b>Start Time.</b></label>
+					<input type="text" placeholder="hh:mmam/pm" name="cStart" id='cStart' required>
+
+					<label for="cEnd"><b>End Time</b></label>
+					<input type="text" placeholder="hh:mmam/pm" name="cEnd" id='cEnd' required>
+
+					<button type="button" onclick="createClass();document.getElementById('AddClass').style.display='none'">Add Class to Schedule</button>
+				</div>
+
+				<div class="container" style="background-color:#f1f1f1">
+					<button type="button" onclick="document.getElementById('AddClass').style.display='none'" class="CancelButton">Cancel</button>
+				</div>
+			</div>
+		</div>
+
+		<button onclick="document.getElementById('AddDetails').style.display='block'" style="width:auto;">Add Course Details</button><br>
+
+		<div id="AddDetails" class="AllModals">
+			<div class="modal-content animate">
+				<div class="imgcontainer">
+					<span onclick="document.getElementById('AddDetails').style.display='none'" class="close" title="Close Modal">&times;</span>
+				</div>
+
+				<div class="container">
+					<h1>Add Details</h1>
+
+					<label for="curr2"><b>Enter the course name or number you wish to update.</b></label>
+					<input type="text" placeholder="Name/Number" name="curr2" id='curr2' required>
+
+					<label for="cGoal"><b>Enter your letter grade goal.</b></label>
+					<input type="text" placeholder="Letter Grade" name="cGoal" id='cGoal' required>
+
+					<label for="cHours"><b>Enter the course credit hours.</b></label>
+					<input type="text" placeholder="Letter Grade" name="cHours" id='cHours' required>
+
+					<label for="cGrade"><b>Enter your final Grade</b></label>
+					<input type="text" placeholder="percentage" name="cGrade" id='cGrade' required>
+
+					<p>Enter the percentage required to achieve each letter grade</p>
+
+					<label for="aP"><b>A+</b></label>
+					<input type="text" placeholder="percentage" name="aP" id='aP' required>
+
+					<label for="a"><b>A</b></label>
+					<input type="text" placeholder="percentage" name="a" id='a' required>
+
+					<label for="aM"><b>A-</b></label>
+					<input type="text" placeholder="percentage" name="aM" id='aM' required>
+
+					<label for="bP"><b>B+</b></label>
+					<input type="text" placeholder="percentage" name="bP" id='bP' required>
+
+					<label for="b"><b>B</b></label>
+					<input type="text" placeholder="percentage" name="b" id='b' required>
+
+					<label for="bM"><b>B-</b></label>
+					<input type="text" placeholder="percentage" name="bM" id='bM' required>
+
+					<label for="cP"><b>C+</b></label>
+					<input type="text" placeholder="percentage" name="cP" id='cP' required>
+
+					<label for="c"><b>C</b></label>
+					<input type="text" placeholder="percentage" name="c" id='c' required>
+
+					<label for="cM"><b>C-</b></label>
+					<input type="text" placeholder="percentage" name="cM" id='cM' required>
+
+					<label for="d"><b>D</b></label>
+					<input type="text" placeholder="percentage" name="d" id='d' required>
+
+					<label for="f"><b>F</b></label>
+					<input type="text" placeholder="percentage" name="f" id='f' required>
+
+					<button type="button" onclick="addDetails();document.getElementById('AddDetails').style.display='none'">Add Details</button>
+				</div>
+
+				<div class="container" style="background-color:#f1f1f1">
+					<button type="button" onclick="document.getElementById('AddDetails').style.display='none'" class="CancelButton">Cancel</button>
+				</div>
+			</div>
+		</div>
+
+		<button onclick="document.getElementById('AddAssessment').style.display='block'" style="width:auto;">Add Assessment</button><br>
+
+		<div id="AddAssessment" class="AllModals">
+			<div class="modal-content animate">
+
+				<div class="imgcontainer">
+					<span onclick="document.getElementById('AddAssessment').style.display='none'" class="close" title="Close Modal">&times;</span>
+				</div>
+
+				<div class="container">
+
+					<h1>Add Assessment</h1>
+
+					<label for="curr3"><b>Enter the course name or number you wish to update:</b></label>
+					<input type="text" placeholder="Name/Number" name="curr3" id='curr3' required>
+
+					<label for="aName"><b>Enter the assessment name:</b></label>
+					<input type="text" placeholder="Name" name="aName" id='aName' required>
+
+					<label for="aValue"><b>Enter the percentage value of the assessment:</b></label>
+					<input type="text" placeholder="Percentage" name="aValue" id='aValue' required>
+
+					<label for="aDue"><b>Enter the assessment due date (dd/mm/yyyy):</b></label>
+					<input type="text" placeholder="dd/mm/yyyy" name="aDue" id='aDue' required>
+
+					<button type="button" onclick="addAssessment();document.getElementById('AddAssessment').style.display='none'">Add Assessment</button>
+
+				</div>
+
+				<div class="container" style="background-color:#f1f1f1">
+					<button type="button" onclick="document.getElementById('AddAssessment').style.display='none'" class="CancelButton">Cancel</button>
+				</div>
+			</div>
+		</div>
+
+		<button onclick="document.getElementById('AddGrades').style.display='block'" style="width:auto;">Add Assessment Grade</button><br>
+
+		<div id="AddGrades" class="AllModals">
+			<div class="modal-content animate">
+				<div class="imgcontainer">
+					<span onclick="document.getElementById('AddGrades').style.display='none'" class="close" title="Close Modal">&times;</span>
+				</div>
+
+				<div class="container">
+					<h1>Add Grade</h1>
+
+					<label for="curr4"><b>Enter the course name or number you wish to update:</b></label>
+					<input type="text" placeholder="Name/Number" name="curr4" id='curr4' required>
+
+					<label for="aGradeName"><b>Enter the assessment name:</b></label>
+					<input type="text" placeholder="Name" name="aGradeName" id='aGradeName' required>
+
+					<label for="aGrade"><b>Enter your grade:</b></label>
+					<input type="text" placeholder="Percentage" name="aGrade" id='aGrade' required>
+
+					<button type="button" onclick="addGrade();document.getElementById('AddGrades').style.display='none'">Add Grade</button>
+				</div>
+
+				<div class="container" style="background-color:#f1f1f1">
+					<button type="button" onclick="document.getElementById('AddGrades').style.display='none'" class="CancelButton">Cancel</button>
+				</div>
+			</div>
+		</div>
+
+		<button onclick="document.getElementById('ViewCourses').style.display='block'" style="width:auto;">View Courses</button><br>
+
+		<div id="ViewCourses" class="AllModals">
+			<div class="modal-content animate">
+				<div class="imgcontainer">
+					<span onclick="document.getElementById('ViewCourses').style.display='none'" class="close" title="Close Modal">&times;</span>
+				</div>
+
+				<div class="container">
+					<h1>View Course Details</h1>
+
+					<label for="curr5"><b>Enter the course name or number you wish to view:</b></label>
+					<input type="text" placeholder="Name/Number" name="curr5" id='curr5' required>
+
+					<button type="button" onclick="viewCourse()">View Course</button>
+
+					<p id="outDetails"></p>
+					<p id="outSched"></p>
+					<p id="outMon"></p>
+					<p id="outTues"></p>
+					<p id="outWed"></p>
+					<p id="outThurs"></p>
+					<p id="outFri"></p>
+					<p id="outAssessments"></p>
+					<p id="outGoal"></p>
+					<p id="outProjected"></p>
+					<p id="outSuggestion"></p>
+				</div>
+
+				<div class="container" style="background-color:#f1f1f1">
+					<button type="button" onclick="document.getElementById('ViewCourses').style.display='none'" class="CancelButton">Exit</button>
+				</div>
+			</div>
+		</div>
+
+		<button onclick="document.getElementById('ViewGPS').style.display='block';viewGPS()" style="width:auto;">GPS Tracker</button><br>
+
+		<div id="ViewGPS" class="AllModals">
+			<div class="modal-content animate">
+				<div class="imgcontainer">
+					<span onclick="document.getElementById('ViewGPS').style.display='none'" class="close" title="Close Modal">&times;</span>
+				</div>
+
+				<div class="container">
+					<h1>GPS</h1>
+					<p id="outGPS"></p>
+				</div>
+
+				<div class="container" style="background-color:#f1f1f1">
+					<button type="button" onclick="document.getElementById('ViewGPS').style.display='none'" class="CancelButton">Exit</button>
+				</div>
+			</div>
+		</div>
+
+		<p id="outCourse"></p>
+		<p id="outSchedule"></p>
+		<p id="mon"></p>
+		<p id="tues"></p>
+		<p id="wed"></p>
+		<p id="thurs"></p>
+		<p id="fri"></p>
+		<p id="outDet"></p>
+		<p id="outAss"></p>
+
+	</body>
 </html>
