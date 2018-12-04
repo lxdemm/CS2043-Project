@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "emtsbrfqpupudx",
+    "password": "0469831f945fc9d9acf6989b6418d3d2f46203558f6f11ffcfa9daf1e861c1e5",
+    "database": "d343l27jvbbstv",
+    "host": "ec2-54-204-40-248.compute-1.amazonaws.com",
+    "dialect": "postgres"
+  }
+}

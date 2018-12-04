@@ -1,19 +1,6 @@
 var http = require('http');
 var fs = require('fs'); //uses computer's file system
 var url = require('url'); //to use urls
-//var mysql = require('mysql');
-
-/*var con = mysql.createConnection ({
-  host: "127.0.0.1",
-  port: "3306",
-  user: "root",
-  password: ""
-});
-
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-})*/
 
 const { Pool, Client } = require('pg');
 //const connectionString = 'postgresql://dbuser:secretpassword@database.server.com:3211/mydb';
@@ -24,10 +11,10 @@ const pool = new Pool({
   ssl:true,
 });
 
-pool.query('SELECT NOW()', (err, res) => {
+/*pool.query('SELECT NOW()', (err, res) => {
   console.log(err,res);
   pool.end();
-});
+});*/
 
 const client = new Client({
   connectionString: connectionString,
@@ -35,16 +22,16 @@ const client = new Client({
 });
 client.connect();
 
-const q = {
+/*const testq = {
   text: 'INSERT INTO public."Student"("First_Name", "Last_Name", "Student_Email", "Student_ID", "Username", "Password") VALUES($1, $2, $3, $4, $5, $6)',
   values: ['Jane', 'Doe', 'jane@email.com', 1, 'jane_doe', 'password'],
 };
 
-client.query(q, (err, res) => {
+client.query(testq, (err, res) => {
   console.log(err,res);
   client.end();
-});
-
+});*/
+console.log('Running on port 80')
 http.createServer(function (req, res) {
   var q = url.parse(req.url, true).pathname;
   var signUp = "SignUp.html";
@@ -52,6 +39,7 @@ http.createServer(function (req, res) {
   //var filename = "." + q.pathname;
   switch(q) {
     case "/":
+    console.log('HERE')
     fs.readFile(signUp, function(err, data) {
       if(err) {
         res.writeHead(404, {'Content-Type': 'text/html'});
@@ -73,6 +61,21 @@ http.createServer(function (req, res) {
       res.write(data);
       return res.end();
     });
+    break;
+
+    case "/student":
+    console.log('student!')
+    console.log(req.method)
+    switch(req.method){
+      case 'GET':
+        console.log('need to qwueery for student')
+        break;
+
+      case 'POST':
+        console.log(req.body) // undefined
+    }
+    //console.log(req)
+    return res.end('good here')
     break;
 
     default:
