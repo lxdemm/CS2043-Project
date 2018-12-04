@@ -246,24 +246,50 @@
 			</div>
 		</div>
 
-		<button onclick="document.getElementById('ViewGPS').style.display='block';viewGPS()" style="width:auto;">GPS Tracker</button><br>
+		<button onclick="document.getElementById('ViewGPA').style.display='block';viewGPA()" style="width:auto;">GPA Tracker</button><br>
 
-		<div id="ViewGPS" class="AllModals">
-			<div class="modal-content animate">
-				<div class="imgcontainer">
-					<span onclick="document.getElementById('ViewGPS').style.display='none'" class="close" title="Close Modal">&times;</span>
+		<div id="ViewGPA" class="AllModals">		
+			<div class="modal-content animate">		
+				<div class="imgcontainer">		
+					<span onclick="document.getElementById('ViewGPA').style.display='none'" class="close" title="Close Modal">&times;</span>
 				</div>
-
-				<div class="container">
-					<h1>GPS</h1>
-					<p id="outGPS"></p>
+		
+				<div class="container">			
+					<h1>GPA</h1>			
+					<p id="outGPA"></p>			
 				</div>
 
 				<div class="container" style="background-color:#f1f1f1">
-					<button type="button" onclick="document.getElementById('ViewGPS').style.display='none'" class="CancelButton">Exit</button>
-				</div>
-			</div>
+					<button type="button" onclick="document.getElementById('ViewGPA').style.display='none'" class="CancelButton">Exit</button>
+				</div>	 			
+			</div> 
 		</div>
+
+		<button onclick="document.getElementById('View7').style.display='block';view7()" style="width:auto;">Next 7 Days</button><br>
+
+		<div id="View7" class="AllModals">		
+			<div class="modal-content animate">		
+				<div class="imgcontainer">		
+					<span onclick="document.getElementById('View7').style.display='none'" class="close" title="Close Modal">&times;</span>
+				</div>
+		
+				<div class="container">			
+					<h1>Next 7 days</h1>
+			
+					<p id="day1"></p>
+					<p id="day2"></p>
+					<p id="day3"></p>
+					<p id="day4"></p>
+					<p id="day5"></p>
+					<p id="day6"></p>
+					<p id="day7"></p>					
+				</div>
+
+				<div class="container" style="background-color:#f1f1f1">
+					<button type="button" onclick="document.getElementById('View7').style.display='none'" class="CancelButton">Exit</button>
+				</div>	  			
+			</div> 
+		</div>		
 
 		<p id="outCourse"></p>
 		<p id="outSchedule"></p>
@@ -274,6 +300,5 @@
 		<p id="fri"></p>
 		<p id="outDet"></p>
 		<p id="outAss"></p>
-
 	</body>
 </html>
