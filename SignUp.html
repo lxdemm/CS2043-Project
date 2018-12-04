@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<!-- SET UP : HEADING -->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Welcome to StudySmart!</title>
+        <link rel="stylesheet" type="text/css" href="./css/signUp.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="./js/signUp.js"></script>
+    </head>
+
+<!-- NAVIGATION BAR -->
+	<ul>
+		<li><h1> <href="" style:"center">StudySmart</h1></li>
+		<li><a onclick="document.getElementById('SignUp').style.display='block'">Sign Up</a></li>
+		<li><a onclick="document.getElementById('Login').style.display='block'">Login</a></li>
+	</ul>
+	
+
+	
+<!-- SET UP : WELCOME / DESCRIPTION -->
+    <body onload = checkCookie()> 
+	<h2>Welcome to StudySmart!</h2>
+	<div class = "row">
+	<div class="column">
+		<p>StudySmart is here to help students organize their busy schedules! StudySmart provides features that store grades, 
+		calculate GPA, allows students to set goals for themselves and many more! It also includes a calender so that students
+		never miss any deadlines. Sign up today to help organize your life! </p>
+		</div>
+		<div class = "column">
+
+<!-- INSERT IMAGE -->
+	<img src="studysmart.jpg" alt="StudySmart" style="center">
+	</div>
+	
+	
+<!-- SIGN UP BUTTON -->
+      <!-- <button onclick="document.getElementById('SignUp').style.display='block'" style="width:auto;">Sign Up</button>
+       -->
+	   <div id="SignUp" class="SignUpModal">
+       	   	   <div class="modal-content animate">
+               <div class="imgcontainer">
+                    <span onclick="document.getElementById('SignUp').style.display='none'" class="close" title="Close Modal">&times;</span>
+                </div>
+
+                <div class="container">
+                    <h1>Sign Up</h1>
+
+                    <label for="username1"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="username1" id='username1' required>
+
+                    <label for="password1"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="password1" id='password1' required>
+
+                    <label for="passwordRepeat"><b>Repeat Password</b></label>
+                    <input type="password" placeholder="Repeat Password" name="passwordRepeat" id="passwordRepeat" required>
+
+                    <button type="submit" value="submit" onClick="createAccount()">Sign Up</button>
+                </div>
+
+                <div class="container" style="background-color:#f1f1f1">
+                    <button type="button" onclick="document.getElementById('SignUp').style.display='none'" class="CancelButton">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+		
+<!-- LOGIN BUTTON -->
+       <!-- <br><button onclick="document.getElementById('Login').style.display='block'" style="width:auto;">Login</button>
+-->
+        <div id="Login" class="LoginModal">
+            <div class="modal-content animate">
+                <div class="imgcontainer">
+                    <span onclick="document.getElementById('Login').style.display='none'" class="close" title="Close Modal">&times;</span>
+                </div>
+
+                <div class="container">
+                    <h1>Login</h1>
+                    
+                    <label for="username2"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="username2" id='username2' required>
+
+                    <label for="password2"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="password2" id='password2' required>
+
+                    <div id="button">
+                        <a value="submit" onclick="login()">Log In</a>
+                    </div>
+
+                    <div class="container" style="background-color:#f1f1f1">
+                        <button type="button" onclick="document.getElementById('Login').style.display='none'" class="CancelButton">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+	
+		
+    </body>
+</html>
