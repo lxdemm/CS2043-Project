@@ -22,6 +22,7 @@ module.exports = (app) => {
   //course routes
   app.post('/api/students/:username/courses', coursesController.create);
   app.get('/api/students/:username/courses', coursesController.list);
+  app.get('/api/students/:username/courses/complete', coursesController.listCompleted);
   app.get('/api/students/:username/courses/:courseId', coursesController.retrieve);
   app.put('/api/students/:username/courses/:courseId', coursesController.update);
   app.delete('/api/students/:username/courses/:courseId', coursesController.destroy);

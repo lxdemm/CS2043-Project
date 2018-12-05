@@ -17,13 +17,31 @@ require('./server/routes')(app);
 
 app.get('',function(req,res){
   console.log('directing to login')
-  res.sendFile(__dirname + '\\SignUp.html');
+  res.sendFile(__dirname + '\\haileysignup.html');
   //It will find and locate index.html from View or Scripts
 });
 
 app.get("/home",function(req,res){
   console.log('directing to home')
-  res.sendFile(__dirname + '\\HomePage.html');
+  res.sendFile(__dirname + '\\haileyhome.html');
+  //It will find and locate index.html from View or Scripts
+});
+
+app.get("/courses",function(req,res){
+  console.log('directing to courses')
+  res.sendFile(__dirname + '\\Courses.html');
+  //It will find and locate index.html from View or Scripts
+});
+
+app.get("/grades",function(req,res){
+  console.log('directing to grades')
+  res.sendFile(__dirname + '\\Grades.html');
+  //It will find and locate index.html from View or Scripts
+});
+
+app.get("/schedule",function(req,res){
+  console.log('directing to home')
+  res.sendFile(__dirname + '\\Schedule.html');
   //It will find and locate index.html from View or Scripts
 });
 

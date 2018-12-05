@@ -79,7 +79,9 @@ function login(){
                     setCookie("username", username2, 0.05);
                     console.log("Cookie set to: " + getCookie("username"));
                     window.location.href = currenturl + 'home';
-                } 
+                } else {
+                    document.getElementById("loginerror").innerHTML = "We couldn't find a match in our records. Please try again.";
+                }
             }    
         }
     }
