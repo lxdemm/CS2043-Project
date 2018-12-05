@@ -36,6 +36,11 @@ li a:hover {
     background-color: #006080;
 }
 
+.popupHeader{
+    text-align: center;
+
+}
+
 .column {
     float: left;
   }
@@ -92,6 +97,15 @@ li a:hover {
   }
   
   /* Change the background color of the dropdown button when the dropdown content is shown */
+#addCourse {
+    color: rgb(89, 140, 168);
+}
+
+#addCourse:hover {
+    color: #006080;
+    text-decoration: underline;
+    cursor: pointer;
+}
 
 board {
     display: block;
@@ -134,7 +148,7 @@ button:hover {
 /* Extra styles for the cancel buttons */
 .CancelButton {
     padding: 14px 20px;
-    background-color: rgb(163, 197, 191);
+    background-color: rgb(145, 186, 204);
 }
 
 /* Center the image and position the close button */

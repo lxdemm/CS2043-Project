@@ -49,7 +49,7 @@
         </div>
       </div> -->
 	
-	<body onload="checkCookie()">
+	<body onload="checkCookie();viewCourseList();displayWelcome();">
 		<!-- <button onclick="logOut()" style="width:auto; float:right;">Log out</button>
 		-->
 		<!-- <h2>Welcome!</h2> -->
@@ -57,13 +57,48 @@
 		
 		<!-- <div class = "row"> -->
 		<div class="column side">
-		<board> My Courses: 
-            <!-- <h5 id="addAssess" onclick="">Add assessments to view progress...</h5> -->
+		<board>
+            <h4> My Courses: </h4> 
+            <p id="courseList"></p>
+            <p id="addCourse" onclick="document.getElementById('AddCourse').style.display='block'" style="width:auto;"">Add a course...</h5>
+
         </board>
-		</div>
+        </div>
+        
+        <div id="AddCourse" class="AllModals">
+
+                <div class="modal-content animate">
+    
+                    <div class="imgcontainer">
+                        <span onclick="document.getElementById('AddCourse').style.display='none'" class="close" title="Close Modal">&times;</span>
+                    </div>
+    
+                    <div class="container">
+                        <h1 class="popupHeader">Add Course</h1>
+    
+                        <label for="cName"><b>Course Name</b></label>
+                        <input type="text" placeholder="Course Name" name="cName" id='cName' required>
+    
+                        <label for="cNumber"><b>Course Number</b></label>
+                        <input type="text" placeholder="Course Number" name="cNumber" id='cNumber' required>
+    
+                        <label for="cSection"><b>Section Number</b></label>
+                        <input type="text" placeholder="Section Number" name="cSection" id='cSection' required>
+    
+                        <label for="cInst"><b>Instructor</b></label>
+                        <input type="text" placeholder="Instructor Name" name="cInst" id='cInst' required>
+    
+                        <button type="button" onclick="createCourse();document.getElementById('AddCourse').style.display='none'">Add Course</button>
+                    </div>
+    
+                    <div class="container" style="background-color:#f1f1f1">
+                        <button type="button" onclick="document.getElementById('AddCourse').style.display='none'" class="CancelButton">Cancel</button>
+                    </div>
+                </div>
+            </div>
 		
 		<div class = "column middle">
-		<h2 style="text-align: center"> Middle </h2>
+		<h2 id="welcomeMessage" style="text-align: center"></h2>
 		</div>
 		
 		<div class = "column side">
@@ -73,7 +108,6 @@
 		
 		
 		<!--
-		
 		
 		
 		

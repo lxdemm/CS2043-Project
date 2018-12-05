@@ -1,5 +1,9 @@
 var currentuser = getCookie("username");
 
+function displayWelcome() {
+    document.getElementById('welcomeMessage').innerHTML = "Welcome, " + currentuser + "!";
+}
+
 //complete
 function createCourse(){
     var cName = document.getElementById('cName').value;
@@ -194,6 +198,30 @@ function viewCourse(){
     else if (projPer < perGoal){
         strSugg = strSugg + "You must average " + suggestion + "% on your remaining assessments to achieve your goal";
     }*/
+}
+
+function viewCourseList(){
+    var courseList;
+    const http = new XMLHttpRequest();
+    const url = "api/students/" + currentuser + "/courses";
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+            //alert(http.responseText);
+            courseList = JSON.parse(http.responseText);s
+        }
+    }
+    http.open('GET', url, false);
+    http.setRequestHeader('Content-type','application/json; charset=utf-8');
+    http.send(null);
+
+    var dispList = "";
+    var i;
+    for (i=0; i<courseList.length; i++) {
+        dispList = dispList + courseList[i].Course_ID + "<br />";
+    }
+    
+    document.getElementById('courseList').innerHTML = dispList;
+
 }
 
 //needs to be tested
