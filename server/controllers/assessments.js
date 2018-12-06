@@ -14,6 +14,13 @@ module.exports = {
       .then(assess => res.status(201).send(assess))
       .catch(error => res.status(400).send(error));
   },
+  listAll(req, res) {
+    return Assessment
+      .findAll({
+      })
+      .then(assess => res.status(200).send(assess))
+      .catch(error => res.status(400).send(error));
+    },
   list(req, res) {
     return Assessment
       .findAll({
@@ -46,8 +53,8 @@ module.exports = {
       return Assessment
       .find({
         where: {
-            courseId: req.params.courseId,
-            Title: req.params.assessId            
+          Title: req.params.assessId,
+          courseId: req.params.courseId,           
         },
       })
         .then(assess => {

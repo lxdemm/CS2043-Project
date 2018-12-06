@@ -9,6 +9,10 @@ module.exports = {
         Credit_Hours: req.body.Credit_Hours,
         Section_ID: req.body.Section_ID,
         Instructor: req.body.Instructor,
+        Assignments: req.body.Assignments,
+        Labs: req.body.Labs,
+        Quizzes: req.body.Quizzes,
+        Midterms: req.body.Midterms,
         username: req.params.username
       })
       .then(course => res.status(201).send(course))

@@ -26,6 +26,18 @@ module.exports = {
       Goal_Grade: {
         type: Sequelize.TEXT
       },
+      Assignments: {
+        type: Sequelize.INTEGER
+      },
+      Labs: {
+       type: Sequelize.INTEGER
+      },
+      Quizzes: {
+        type: Sequelize.INTEGER
+      },
+      Midterms: {
+        type: Sequelize.INTEGER
+      },
       Complete: {
         type: Sequelize.BOOLEAN
       },

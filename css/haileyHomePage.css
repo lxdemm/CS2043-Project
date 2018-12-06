@@ -8,6 +8,16 @@ h2 {
     color: rgb(42, 104, 131)
 }
 
+h3 {
+    color: rgb(55, 118, 145)
+}
+
+h4 {
+    color: rgb(55, 118, 145);
+    float: center;
+    text-align: center;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -53,6 +63,10 @@ li a:hover {
 /* Middle column */
 .column.middle {
     width: 60%;
+}
+
+.column.calendar {
+    width: 14%
 }
 
 .row:after {
@@ -129,6 +143,21 @@ input[type=text], input[type=password] {
     box-sizing: border-box;
 }
 
+input[type=numIn] {
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    float: right;
+    
+}
+
+input[type=checkbox] {
+    transform: scale(1.5);
+    margin: 30px;
+    font-size: 110%;
+}
+
 /* Set a style for all buttons */
 button {
     background-color: #247BA0;
@@ -188,7 +217,7 @@ span.psw {
     background-color: #fefefe;
     margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 50%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button (x) */

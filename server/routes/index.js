@@ -30,6 +30,7 @@ module.exports = (app) => {
   //assessment routes
   app.post('/api/students/:username/courses/:courseId/assess', assessController.create);
   app.get('/api/students/:username/courses/:courseId/assess', assessController.list);
+  app.get('/api/students/:username/assess', assessController.listAll);
   app.get('/api/students/:username/courses/:courseId/assess/:assessId', assessController.retrieve);
   app.put('/api/students/:username/courses/:courseId/assess/:assessId', assessController.update);
   app.delete('/api/students/:username/courses/:courseId/assess/:assessId', assessController.destroy);

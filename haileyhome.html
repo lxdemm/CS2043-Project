@@ -34,9 +34,8 @@
             </div>
         </div> -->
         <li style="cursor:pointer"><a href="http://127.0.0.1:8000/courses">Courses</a></li>
-
 		<li style="cursor:pointer"><a href="http://127.0.0.1:8000/grades">Grades</a></li>
-		<li style="cursor:pointer"><a href="http://127.0.0.1:8000/schedule">Schedule</a></li>
+		<!-- <li style="cursor:pointer"><a href="http://127.0.0.1:8000/schedule">Schedule</a></li> -->
 		<li style="float:right; cursor:pointer"><a onclick="logOut()">Sign Out</a></li>
 	</ul>
     
@@ -49,7 +48,7 @@
         </div>
       </div> -->
 	
-	<body onload="checkCookie();viewCourseList();displayWelcome();">
+	<body onload="checkCookie();viewCourseList();displayWelcome();displayCurrentDate();dueToday();">
 		<!-- <button onclick="logOut()" style="width:auto; float:right;">Log out</button>
 		-->
 		<!-- <h2>Welcome!</h2> -->
@@ -57,12 +56,11 @@
 		
 		<!-- <div class = "row"> -->
 		<div class="column side">
-		<board>
-            <h4> My Courses: </h4> 
-            <p id="courseList"></p>
-            <p id="addCourse" onclick="document.getElementById('AddCourse').style.display='block'" style="width:auto;"">Add a course...</h5>
-
-        </board>
+            <board>
+                <h4> My Courses: </h4> 
+                <p id="courseList"></p>
+                <p id="addCourse" onclick="document.getElementById('AddCourse').style.display='block'" style="width:auto;"">Add a course...</h5>
+            </board>
         </div>
         
         <div id="AddCourse" class="AllModals">
@@ -88,7 +86,7 @@
                         <label for="cInst"><b>Instructor</b></label>
                         <input type="text" placeholder="Instructor Name" name="cInst" id='cInst' required>
     
-                        <button type="button" onclick="createCourse();document.getElementById('AddCourse').style.display='none'">Add Course</button>
+                        <button type="button" onclick="document.getElementById('AddCourse').style.display='none';document.getElementById('AddCourse2').style.display='block';enableText()">Next</button>
                     </div>
     
                     <div class="container" style="background-color:#f1f1f1">
@@ -96,13 +94,56 @@
                     </div>
                 </div>
             </div>
+
+            <div id="AddCourse2" class="AllModals">
+
+                    <div class="modal-content animate">
+        
+                        <div class="imgcontainer">
+                            <span onclick="document.getElementById('AddCourse2').style.display='none'" class="close" title="Close Modal">&times;</span>
+                        </div>
+        
+                        <div class="container">
+                            <h1 class="popupHeader">Add Course</h1>
+                            <h2>Deliverables (select all that apply):</h2>
+        
+                            <input type="checkbox" id="assignBool" name="assignBool" value="assignBool" onclick="enableText()">
+                            <label for="assignBool" style="font-size: 125%">Assignments</label>
+                            <input type="numIn" placeholder="Enter value" name="assignNum" id='assignNum'><br>
+        
+                            <input type="checkbox" id="labBool" name="labBool" value="Labs" onclick="enableText()"> 
+                            <label for="labBool" style="font-size: 125%">Labs</label>
+                            <input type="numIn" placeholder="Enter value" name="labNum" id='labNum'><br>
+
+                            <input type="checkbox" id="quizBool" name="quizBool" value="Quizzes" onclick="enableText()">
+                            <label for="quizBool" style="font-size: 125%">Quizzes</label>
+                            <input type="numIn" placeholder="Enter value" name="quizNum" id='quizNum'><br>
+
+                            <input type="checkbox" id="midBool" name="midBool" value="Midterms" onclick="enableText()">                            
+                            <label for="midBool" style="font-size: 125%">Midterms</label>
+                            <input type="numIn" placeholder="Enter value" name="midNum" id='midNum'><br>
+        
+                            <button type="button" onclick="createCourse();document.getElementById('AddCourse2').style.display='none'">Add Course</button>
+                        </div>
+        
+                        <div class="container" style="background-color:#f1f1f1">
+                            <button type="button" onclick="document.getElementById('AddCourse2').style.display='none'" class="CancelButton">Cancel</button>
+                        </div>
+                    </div>
+                </div>
 		
 		<div class = "column middle">
-		<h2 id="welcomeMessage" style="text-align: center"></h2>
+            <h2 id="welcomeMessage" style="text-align: center"></h2>
+            <h4 id="displayDate"></h4>
+            <h3>Here's how the next 7 days are looking:</h3>
+            <h5 class="schedule"></h5>
 		</div>
 		
 		<div class = "column side">
-		<board> Date </board>
+            <board> 
+                <h4>Today's tasks:</h4>
+                <p id="dueToday"></p>
+            </board>
 		</div>
 		
 		

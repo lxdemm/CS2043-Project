@@ -4,18 +4,71 @@ function displayWelcome() {
     document.getElementById('welcomeMessage').innerHTML = "Welcome, " + currentuser + "!";
 }
 
+function displayCurrentDate() {
+    var today = new Date();
+    var day = today.getDate();
+    var month = today.getMonth() + 1;
+    var year = today.getFullYear();
+    var monthName = "";
+
+    switch(month) {
+        case 01: monthName="January"; break;
+        case 02: monthName="February"; break;
+        case 03: monthName="March"; break;
+        case 04: monthName="April"; break;
+        case 05: monthName="May"; break;
+        case 06: monthName="June"; break;
+        case 07: monthName="July"; break;
+        case 08: monthName="August"; break;
+        case 09: monthName="September"; break;
+        case 10: monthName="October"; break;
+        case 11: monthName="November"; break;
+        case 12: monthName="December"; break;
+    }
+
+    document.getElementById("displayDate").innerHTML = "Today's date: " + monthName + " " + day + ", " + year
+}
+
+function enableText() {
+    document.getElementById("assignNum").disabled = !(document.getElementById("assignBool").checked);
+    document.getElementById("labNum").disabled = !(document.getElementById("labBool").checked);
+    document.getElementById("quizNum").disabled = !(document.getElementById("quizBool").checked);
+    document.getElementById("midNum").disabled = !(document.getElementById("midBool").checked);
+}
+
 //complete
 function createCourse(){
     var cName = document.getElementById('cName').value;
     var cNumber = document.getElementById('cNumber').value;
     var cSection = document.getElementById('cSection').value;
     var cInst = document.getElementById('cInst').value;
+    var assignNum = document.getElementById('assignNum').value;
+    var labNum = document.getElementById('labNum').value;
+    var quizNum = document.getElementById('quizNum').value;
+    var midNum = document.getElementById('midNum').value;
+
+    if (assignNum == '') {
+        assignNum = 0;
+    }
+    if (labNum == '') {
+        labNum = 0;
+    }
+    if (midNum == '') {
+        midNum = 0;
+    }
+    if (quizNum == '') {
+        quizNum = 0;
+    }
 
     var newCourse = {
         Course_ID: cNumber,
         Course_Name: cName,
         Section_ID: cSection,
-        Instructor: cInst
+        Instructor: cInst,
+        Assignments: assignNum,
+        Labs: labNum,
+        Quizzes: quizNum,
+        Midterms: midNum
     }
 
     var newCourseJSON = JSON.stringify(newCourse);
@@ -126,6 +179,50 @@ function addAssessment(){
     http2.send(newAssessJSON);
 }
 
+function dueToday() {
+    var assessList;
+    var today = new Date();
+    var day = today.getDate();
+    var month = today.getMonth() + 1;
+    var year = today.getFullYear();
+
+    const http = new XMLHttpRequest();
+    const url = "api/students/" + currentuser + "/assess";
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+            //alert(http.responseText);
+            assessList = JSON.parse(http.responseText);
+            console.log(assessList)
+            console.log(day)
+            console.log(month)
+            console.log(year)
+        }
+    }
+    http.open('GET', url, false);
+    http.setRequestHeader('Content-type','application/json; charset=utf-8');
+    http.send(null);
+
+    var dispList = "";
+    var i;
+    if (assessList.length == 0) {
+        displist = "You have no tasks today!";
+    } else {
+        for (i=0; i<assessList.length; i++) {
+            var tempDate = assessList[i].Due_Date;
+            console.log(tempDate)
+            var thisDay = parseInt(tempDate.slice(0,2))
+            console.log(thisDay)
+            console.log(parseInt(tempDate.slice(3,5)))
+            console.log( parseInt(tempDate.slice(6,10)))
+            if (parseInt(tempDate.slice(0,2)) == day && parseInt(tempDate.slice(3,5)) == month && parseInt(tempDate.slice(6, 10)) == year) {
+                dispList = dispList + assessList[i].Title + "<br />";
+            }
+        }
+    }
+    
+    document.getElementById('dueToday').innerHTML = dispList;
+}
+
 //complete
 function addGrade(){
     var course = document.getElementById('curr4').value; //course
@@ -207,7 +304,7 @@ function viewCourseList(){
     http.onreadystatechange = function() {//Call a function when the state changes.
         if(http.readyState == 4 && http.status == 200) {
             //alert(http.responseText);
-            courseList = JSON.parse(http.responseText);s
+            courseList = JSON.parse(http.responseText);
         }
     }
     http.open('GET', url, false);
