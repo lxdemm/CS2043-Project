@@ -23,7 +23,7 @@ app.get('',function(req,res){
 
 app.get("/home",function(req,res){
   console.log('directing to home')
-  res.sendFile(__dirname + '\\haileyhome.html');
+  res.sendFile(__dirname + '\\HomePage.html');
   //It will find and locate index.html from View or Scripts
 });
 
