@@ -272,28 +272,122 @@ function addGrade(){
 
 //can't be added until course page is added
 function viewCourse(){
+
+    // document.getElementById("outDetails").innerHTML = "test"
     var course = document.getElementById('curr5').value;
     var det = "";
 
-    var viewAss = "<br>ASSESSMENTS<br>";
+    var assessStr = "<br>ASSESSMENTS<br>";
     var viewGoal = "COURSE GOAL<br><br>";
   
-    var progress = 0;
-    var track = 0;
-    var projPer = 0;
-    var projLetter = "";
-    var perGoal = 0;
-    var suggestion = 0;
+    // var progress = 0; //how much of the course is completed (percentage)
+    // var track = 0; //how much of ^^ that you earned
+    // var projPer = 0; //current percentage grade
+    // var projLetter = ""; //current letter grade
+    // var perGoal = 0; //goal percentage
+    // var suggestion = 0; //how much to get to goal
+    var courseInfo;
+    var courseId;
+
+    const http = new XMLHttpRequest();
+    var url = "api/students/" + currentuser + "/courses/" + course;
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+           courseInfo = JSON.parse(http.responseText);
+           console.log(courseInfo)
+           courseId = courseInfo[0].id;
+           console.log("ID: " + courseId)
+        }
+    }
+    http.open('GET', url, false);
+    http.setRequestHeader('Content-type','application/json; charset=utf-8');
+    http.send(null);   
+
+    var assessInfo = [];
+
+    const http2 = new XMLHttpRequest();
+    var url2 = "api/students/" + currentuser + "/courses/" + courseId + "/assess";
+    http2.onreadystatechange = function() {//Call a function when the state changes.
+        if(http2.readyState == 4 && http2.status == 200) {
+            assessInfo = JSON.parse(http2.responseText);
+           console.log(assessInfo)
+        }
+    }
+    http.open('GET', url2, false);
+    http.setRequestHeader('Content-type','application/json; charset=utf-8');
+    http.send(null);     
+    
+    console.log("Course: " + courseInfo[0].Course_ID)
+    console.log("Assessments: " + assessInfo[0])
+
+    numAssign = courseInfo[0].Assignments;
+    numLab = courseInfo[0].Labs;
+    numQuizzes = courseInfo[0].Quizzes;
+    numMid = courseInfo[0].Midterms;
+    goalGrade = courseInfo[0].Goal_Grade;
+    isClosed = courseInfo[0].Complete;
+
+    if(courseInfo[0].Assignments != null) {
+        numAssign = courseInfo[0].Assignments;
+    } else {
+        numAssign = 0;
+    }
+    if(courseInfo[0].Labs != null) {
+        numLab = courseInfo[0].Labs;
+    } else {
+        numLab = 0;
+    }
+    if (courseInfo[0].Quizzes != null) {
+        numQuizzes = courseInfo[0].Quizzes;
+    } else {
+        numQuizzes = 0;
+    }
+    if (courseInfo[0].Midterms != null) {
+        numMid = courseInfo[0].Midterms;
+    } else {
+        numMid = 0;
+    }
+
+    var totalAssess = numAssign + numLab + numQuizzes + numMid;
+    console.log("total: " + totalAssess)
+
+    var completeCount=0;
+
+    var i;
+    for(i=0; i<assessInfo.length; i++) {
+        assessStr = assessStr + assessInfo[i].Title + " (due: " + assessInfo[i].Due_Date + ") (";
+        if(assessInfo[i].Complete) {
+            assessStr = assessStr + "complete)<br>"
+            completeCount = completeCount + 1;
+        } else {
+            assessStr = assessStr + "incomplete)<br>"
+        }
+    }
+
+    assessStr = assessStr + "<br>Total assessments completed: " + completeCount + "/" + totalAssess;
+    document.getElementById("outDetails").innerHTML = assessStr; 
+
+    //              <p id="outDetails"></p> (name, number, instructor, section)
+	// 				<p id="outSched"></p> (schedule)
+	// 				<p id="outMon"></p> (classes, assessments due)
+	// 				<p id="outTues"></p>
+	// 				<p id="outWed"></p>
+	// 				<p id="outThurs"></p>
+	// 				<p id="outFri"></p>
+	// 				<p id="outAssessments"></p> (all assessments for course)
+	// 				<p id="outGoal"></p> (goal)
+	// 				<p id="outProjected"></p> (projected grade)
+	// 				<p id="outSuggestion"></p> (suggested grade)
   
     //var suggestion = ((100*perGoal-(projPer*progress))/(100-progress));
 
     var strSugg = "";
 
     /*if (projPer >= perGoal){
-        strSugg = strSugg + "You are on track to reach your achieve your goal!";
+        strSugg = strSugg + "You are on track to achieve your goal!";
     }
     else if (projPer < perGoal){
-        strSugg = strSugg + "You must average " + suggestion + "% on your remaining assessments to achieve your goal";
+        strSugg = strSugg + "You must average " + suggestion + "% on your remaining assessments to achieve your goal.";
     }*/
 }
 

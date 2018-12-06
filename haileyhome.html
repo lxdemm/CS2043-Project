@@ -33,8 +33,8 @@
                 <a href="#">Link 3</a>
             </div>
         </div> -->
-        <li style="cursor:pointer"><a href="http://127.0.0.1:8000/courses">Courses</a></li>
-		<li style="cursor:pointer"><a href="http://127.0.0.1:8000/grades">Grades</a></li>
+        <li style="cursor:pointer"><a onclick="document.getElementById('ViewCourses').style.display='block'" style="width:auto;">View Course</a></li>
+		<li style="cursor:pointer"><a onclick="document.getElementById()">Grades</a></li>
 		<!-- <li style="cursor:pointer"><a href="http://127.0.0.1:8000/schedule">Schedule</a></li> -->
 		<li style="float:right; cursor:pointer"><a onclick="logOut()">Sign Out</a></li>
 	</ul>
@@ -61,6 +61,7 @@
                 <p id="courseList"></p>
                 <p id="addCourse" onclick="document.getElementById('AddCourse').style.display='block'" style="width:auto;"">Add a course...</h5>
                 <p id="addCourse" onclick="document.getElementById('AddAssessment').style.display='block'" style="width:auto;"">Add an assessment...</h5>
+                <p id="addCourse" onclick="document.getElementById('AddGrades').style.display='block'" style="width:auto;"">Add a grade...</h5>
             </board>
         </div>
         
@@ -151,42 +152,6 @@
 		
 		<!--
 		
-		
-		
-		<button onclick="document.getElementById('AddCourse').style.display='block'" style="width:auto;">Add Course</button><br>
-
-		<div id="AddCourse" class="AllModals">
-
-			<div class="modal-content animate">
-
-				<div class="imgcontainer">
-					<span onclick="document.getElementById('AddCourse').style.display='none'" class="close" title="Close Modal">&times;</span>
-				</div>
-
-				<div class="container">
-					<h1>Add Course</h1>
-
-					<label for="cName"><b>Course Name</b></label>
-					<input type="text" placeholder="Course Name" name="cName" id='cName' required>
-
-					<label for="cNumber"><b>Course Number</b></label>
-					<input type="text" placeholder="Course Number" name="cNumber" id='cNumber' required>
-
-					<label for="cSection"><b>Section Number</b></label>
-					<input type="text" placeholder="Section Number" name="cSection" id='cSection' required>
-
-					<label for="cInst"><b>Instructor</b></label>
-					<input type="text" placeholder="Instructor Name" name="cInst" id='cInst' required>
-
-					<button type="button" onclick="createCourse();document.getElementById('AddCourse').style.display='none'">Add Course</button>
-				</div>
-
-				<div class="container" style="background-color:#f1f1f1">
-					<button type="button" onclick="document.getElementById('AddCourse').style.display='none'" class="CancelButton">Cancel</button>
-				</div>
-			</div>
-		</div>
-
 		<button onclick="document.getElementById('AddClass').style.display='block'" style="width:auto;">Add a Class</button><br>
 
 		<div id="AddClass" class="AllModals">
@@ -326,7 +291,7 @@
 		</div>
 <!--
 		<button onclick="document.getElementById('AddGrades').style.display='block'" style="width:auto;">Add Assessment Grade</button><br>
-
+-->
 		<div id="AddGrades" class="AllModals">
 			<div class="modal-content animate">
 				<div class="imgcontainer">
@@ -353,9 +318,9 @@
 				</div>
 			</div>
 		</div>
-
+<!--
 		<button onclick="document.getElementById('ViewCourses').style.display='block'" style="width:auto;">View Courses</button><br>
-
+-->
 		<div id="ViewCourses" class="AllModals">
 			<div class="modal-content animate">
 				<div class="imgcontainer">
@@ -388,7 +353,7 @@
 				</div>
 			</div>
 		</div>
-
+<!--
 		<button onclick="document.getElementById('ViewGPS').style.display='block';viewGPS()" style="width:auto;">GPS Tracker</button><br>
 
 		<div id="ViewGPS" class="AllModals">
