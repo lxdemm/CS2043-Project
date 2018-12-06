@@ -277,8 +277,9 @@ function viewCourse(){
     var course = document.getElementById('curr5').value;
     var det = "";
 
-    var assessStr = "<br>ASSESSMENTS<br>";
-    var viewGoal = "COURSE GOAL<br><br>";
+    var detailStr = "<br>COURSE INFO<br><br>"
+    var assessStr = "<br>ASSESSMENTS<br><br>";
+    var viewGoal = "<br>COURSE GOAL<br><br>";
   
     // var progress = 0; //how much of the course is completed (percentage)
     // var track = 0; //how much of ^^ that you earned
@@ -296,6 +297,7 @@ function viewCourse(){
            courseInfo = JSON.parse(http.responseText);
            console.log(courseInfo)
            courseId = courseInfo[0].id;
+           courseInfo = courseInfo[0];
            console.log("ID: " + courseId)
         }
     }
@@ -303,47 +305,40 @@ function viewCourse(){
     http.setRequestHeader('Content-type','application/json; charset=utf-8');
     http.send(null);   
 
-    var assessInfo = [];
+    name=courseInfo.Course_Name;
+    instructor = courseInfo.Instructor;
+    section = courseInfo.Section_ID;
 
-    const http2 = new XMLHttpRequest();
-    var url2 = "api/students/" + currentuser + "/courses/" + courseId + "/assess";
-    http2.onreadystatechange = function() {//Call a function when the state changes.
-        if(http2.readyState == 4 && http2.status == 200) {
-            assessInfo = JSON.parse(http2.responseText);
-           console.log(assessInfo)
-        }
-    }
-    http.open('GET', url2, false);
-    http.setRequestHeader('Content-type','application/json; charset=utf-8');
-    http.send(null);     
-    
-    console.log("Course: " + courseInfo[0].Course_ID)
-    console.log("Assessments: " + assessInfo[0])
+    detailStr = detailStr + course + ": " + name + "<br>";
+    detailStr = detailStr + "Instructor: " + instructor + "<br>Section: " + section + "<br>"
 
-    numAssign = courseInfo[0].Assignments;
-    numLab = courseInfo[0].Labs;
-    numQuizzes = courseInfo[0].Quizzes;
-    numMid = courseInfo[0].Midterms;
-    goalGrade = courseInfo[0].Goal_Grade;
-    isClosed = courseInfo[0].Complete;
+    document.getElementById("outDetails").innerHTML = detailStr;
 
-    if(courseInfo[0].Assignments != null) {
-        numAssign = courseInfo[0].Assignments;
+
+    numAssign = courseInfo.Assignments;
+    numLab = courseInfo.Labs;
+    numQuizzes = courseInfo.Quizzes;
+    numMid = courseInfo.Midterms;
+    goalGrade = courseInfo.Goal_Grade;
+    isClosed = courseInfo.Complete;
+
+    if(courseInfo.Assignments != null) {
+        numAssign = courseInfo.Assignments;
     } else {
         numAssign = 0;
     }
-    if(courseInfo[0].Labs != null) {
-        numLab = courseInfo[0].Labs;
+    if(courseInfo.Labs != null) {
+        numLab = courseInfo.Labs;
     } else {
         numLab = 0;
     }
-    if (courseInfo[0].Quizzes != null) {
-        numQuizzes = courseInfo[0].Quizzes;
+    if (courseInfo.Quizzes != null) {
+        numQuizzes = courseInfo.Quizzes;
     } else {
         numQuizzes = 0;
     }
-    if (courseInfo[0].Midterms != null) {
-        numMid = courseInfo[0].Midterms;
+    if (courseInfo.Midterms != null) {
+        numMid = courseInfo.Midterms;
     } else {
         numMid = 0;
     }
@@ -352,6 +347,8 @@ function viewCourse(){
     console.log("total: " + totalAssess)
 
     var completeCount=0;
+
+    var assessInfo = getAssessments(courseId);
 
     var i;
     for(i=0; i<assessInfo.length; i++) {
@@ -365,7 +362,7 @@ function viewCourse(){
     }
 
     assessStr = assessStr + "<br>Total assessments completed: " + completeCount + "/" + totalAssess;
-    document.getElementById("outDetails").innerHTML = assessStr; 
+    document.getElementById("outAssessments").innerHTML = assessStr; 
 
     //              <p id="outDetails"></p> (name, number, instructor, section)
 	// 				<p id="outSched"></p> (schedule)
@@ -389,6 +386,24 @@ function viewCourse(){
     else if (projPer < perGoal){
         strSugg = strSugg + "You must average " + suggestion + "% on your remaining assessments to achieve your goal.";
     }*/
+}
+
+function getAssessments(courseId) {
+    var assessInfo;
+
+    const http2 = new XMLHttpRequest();
+    var url2 = "api/students/" + currentuser + "/courses/" + courseId + "/assess";
+    http2.onreadystatechange = function() {//Call a function when the state changes.
+        if(http2.readyState == 4 && http2.status == 200) {
+            assessInfo = JSON.parse(http2.responseText);
+           console.log(assessInfo)
+        }
+    }
+    http2.open('GET', url2, false);
+    http2.setRequestHeader('Content-type','application/json; charset=utf-8');
+    http2.send(null);     
+
+    return assessInfo;
 }
 
 function viewCourseList(){
