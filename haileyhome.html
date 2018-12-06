@@ -1,0 +1,394 @@
+<<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="./css/haileyHomePage.css">
+		<script src="./js/homePage.js"></script>
+	</head>
+
+	
+	<!-- NAVIGATION BAR -->
+	<ul>
+        <li style="cursor:pointer; float:left"><a href="http://127.0.0.1:8000/home">StudySmart</a></li>
+
+        <!-- <div class="dropdown" style="float:left">
+            <li class="droplink" style="cursor:pointer"><a href="#" onclick="">Courses</a></li>
+            <div class="dropdown-content">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+            </div>
+        </div> -->
+
+        <!-- <div class="dropdown">
+            <li>
+                <a class="dropbtn">Courses                        
+                    <i class="fa fa-caret-down"></i>
+                </a>
+            </li>
+            <div class="dropdown-content">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+            </div>
+        </div> -->
+        <li style="cursor:pointer"><a href="http://127.0.0.1:8000/courses">Courses</a></li>
+		<li style="cursor:pointer"><a href="http://127.0.0.1:8000/grades">Grades</a></li>
+		<!-- <li style="cursor:pointer"><a href="http://127.0.0.1:8000/schedule">Schedule</a></li> -->
+		<li style="float:right; cursor:pointer"><a onclick="logOut()">Sign Out</a></li>
+	</ul>
+    
+    <!-- <div class="dropdown">
+        <button class="dropbtn">Dropdown</button>
+        <div class="dropdown-content">
+          <a href="#">Link 1</a>
+          <a href="#">Link 2</a>
+          <a href="#">Link 3</a>
+        </div>
+      </div> -->
+	
+	<body onload="checkCookie();viewCourseList();displayWelcome();displayCurrentDate();dueToday();">
+		<!-- <button onclick="logOut()" style="width:auto; float:right;">Log out</button>
+		-->
+		<!-- <h2>Welcome!</h2> -->
+		
+		
+		<!-- <div class = "row"> -->
+		<div class="column side">
+            <board>
+                <h4> My Courses: </h4> 
+                <p id="courseList"></p>
+                <p id="addCourse" onclick="document.getElementById('AddCourse').style.display='block'" style="width:auto;"">Add a course...</h5>
+                <p id="addCourse" onclick="document.getElementById('AddAssessment').style.display='block'" style="width:auto;"">Add an assessment...</h5>
+            </board>
+        </div>
+        
+        <div id="AddCourse" class="AllModals">
+
+                <div class="modal-content animate">
+    
+                    <div class="imgcontainer">
+                        <span onclick="document.getElementById('AddCourse').style.display='none'" class="close" title="Close Modal">&times;</span>
+                    </div>
+    
+                    <div class="container">
+                        <h1 class="popupHeader">Add Course</h1>
+    
+                        <label for="cName"><b>Course Name</b></label>
+                        <input type="text" placeholder="Course Name" name="cName" id='cName' required>
+    
+                        <label for="cNumber"><b>Course Number</b></label>
+                        <input type="text" placeholder="Course Number" name="cNumber" id='cNumber' required>
+    
+                        <label for="cSection"><b>Section Number</b></label>
+                        <input type="text" placeholder="Section Number" name="cSection" id='cSection' required>
+    
+                        <label for="cInst"><b>Instructor</b></label>
+                        <input type="text" placeholder="Instructor Name" name="cInst" id='cInst' required>
+    
+                        <button type="button" onclick="document.getElementById('AddCourse').style.display='none';document.getElementById('AddCourse2').style.display='block';enableText()">Next</button>
+                    </div>
+    
+                    <div class="container" style="background-color:#f1f1f1">
+                        <button type="button" onclick="document.getElementById('AddCourse').style.display='none'" class="CancelButton">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="AddCourse2" class="AllModals">
+
+                    <div class="modal-content animate">
+        
+                        <div class="imgcontainer">
+                            <span onclick="document.getElementById('AddCourse2').style.display='none'" class="close" title="Close Modal">&times;</span>
+                        </div>
+        
+                        <div class="container">
+                            <h1 class="popupHeader">Add Course</h1>
+                            <h2>Deliverables (select all that apply):</h2>
+        
+                            <input type="checkbox" id="assignBool" name="assignBool" value="assignBool" onclick="enableText()">
+                            <label for="assignBool" style="font-size: 125%">Assignments</label>
+                            <input type="numIn" placeholder="Enter value" name="assignNum" id='assignNum'><br>
+        
+                            <input type="checkbox" id="labBool" name="labBool" value="Labs" onclick="enableText()"> 
+                            <label for="labBool" style="font-size: 125%">Labs</label>
+                            <input type="numIn" placeholder="Enter value" name="labNum" id='labNum'><br>
+
+                            <input type="checkbox" id="quizBool" name="quizBool" value="Quizzes" onclick="enableText()">
+                            <label for="quizBool" style="font-size: 125%">Quizzes</label>
+                            <input type="numIn" placeholder="Enter value" name="quizNum" id='quizNum'><br>
+
+                            <input type="checkbox" id="midBool" name="midBool" value="Midterms" onclick="enableText()">                            
+                            <label for="midBool" style="font-size: 125%">Midterms</label>
+                            <input type="numIn" placeholder="Enter value" name="midNum" id='midNum'><br>
+        
+                            <button type="button" onclick="createCourse();document.getElementById('AddCourse2').style.display='none'">Add Course</button>
+                        </div>
+        
+                        <div class="container" style="background-color:#f1f1f1">
+                            <button type="button" onclick="document.getElementById('AddCourse2').style.display='none'" class="CancelButton">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+		
+		
+		
+		
+		<!-----------------------------------
+		----------- CALENDER ----------------
+		------------------------------------->
+		
+		
+		<div class = "column middle">
+            <h2 id="welcomeMessage" style="text-align: center"></h2>
+            <h4 id="displayDate"></h4>
+            <h3>Here's how the next 7 days are looking:</h3>
+            <ul class="weekdays">
+				<li>Mo</li>
+				<li>Tu</li>
+				<li>We</li>
+				<li>Th</li>
+				<li>Fr</li>
+				<li>Sa</li>
+				<li>Su</li>
+				</ul>
+
+			<ul class="days">  
+				<li <td break-word class = "document.getElementById('day1').innerHTML">jjjjjjj jjjjjj jjjjjjjjj</td></li>
+				<li <td break-word class = "document.getElementById('day2').innerHTML"></td></li>			
+				<li <td break-word class = "document.getElementById('day3').innerHTML"></td></li>				
+				<li <td break-word class = "document.getElementById('day4').innerHTML"></td></li>
+				<li <td break-word class = "document.getElementById('day5').innerHTML"></td></li>
+				<li <td break-word class = "document.getElementById('day6').innerHTML"></td></li>
+				<li <td break-word class = "document.getElementById('day7').innerHTML"></td></li>
+			</ul>
+		</div>
+		
+		
+		
+		
+		
+		
+		<div class = "column side">
+            <board> 
+                <h4>Today's tasks:</h4>
+                <p id="dueToday"></p>
+		
+            </board>
+		</div>
+		
+		
+		
+		<!--
+		
+		
+		
+		<button onclick="document.getElementById('AddCourse').style.display='block'" style="width:auto;">Add Course</button><br>
+		<div id="AddCourse" class="AllModals">
+			<div class="modal-content animate">
+				<div class="imgcontainer">
+					<span onclick="document.getElementById('AddCourse').style.display='none'" class="close" title="Close Modal">&times;</span>
+				</div>
+				<div class="container">
+					<h1>Add Course</h1>
+					<label for="cName"><b>Course Name</b></label>
+					<input type="text" placeholder="Course Name" name="cName" id='cName' required>
+					<label for="cNumber"><b>Course Number</b></label>
+					<input type="text" placeholder="Course Number" name="cNumber" id='cNumber' required>
+					<label for="cSection"><b>Section Number</b></label>
+					<input type="text" placeholder="Section Number" name="cSection" id='cSection' required>
+					<label for="cInst"><b>Instructor</b></label>
+					<input type="text" placeholder="Instructor Name" name="cInst" id='cInst' required>
+					<button type="button" onclick="createCourse();document.getElementById('AddCourse').style.display='none'">Add Course</button>
+				</div>
+				<div class="container" style="background-color:#f1f1f1">
+					<button type="button" onclick="document.getElementById('AddCourse').style.display='none'" class="CancelButton">Cancel</button>
+				</div>
+			</div>
+		</div>
+		<button onclick="document.getElementById('AddClass').style.display='block'" style="width:auto;">Add a Class</button><br>
+		<div id="AddClass" class="AllModals">
+			<div class="modal-content animate">
+				<div class="imgcontainer">
+					<span onclick="document.getElementById('AddClass').style.display='none'" class="close" title="Close Modal">&times;</span>
+				</div>
+				<div class="container">
+					<h1>Add a Class</h1>
+					<label for="curr1"><b>Enter the course name or number you wish to update.</b></label>
+					<input type="text" placeholder="Name/Number" name="curr1" id='curr1' required>
+					<label for="cType"><b>Class Type</b></label>
+					<input type="text" placeholder="Type" name="cType" id='cType' required>
+					<label for="cDay"><b>Day of Class</b></label>
+					<input type="text" placeholder="Day" name="cDay" id='cDay' required>
+					<label for="cStart"><b>Start Time.</b></label>
+					<input type="text" placeholder="hh:mmam/pm" name="cStart" id='cStart' required>
+					<label for="cEnd"><b>End Time</b></label>
+					<input type="text" placeholder="hh:mmam/pm" name="cEnd" id='cEnd' required>
+					<button type="button" onclick="createClass();document.getElementById('AddClass').style.display='none'">Add Class to Schedule</button>
+				</div>
+				<div class="container" style="background-color:#f1f1f1">
+					<button type="button" onclick="document.getElementById('AddClass').style.display='none'" class="CancelButton">Cancel</button>
+				</div>
+			</div>
+		</div>
+		<button onclick="document.getElementById('AddDetails').style.display='block'" style="width:auto;">Add Course Details</button><br>
+		<div id="AddDetails" class="AllModals">
+			<div class="modal-content animate">
+				<div class="imgcontainer">
+					<span onclick="document.getElementById('AddDetails').style.display='none'" class="close" title="Close Modal">&times;</span>
+				</div>
+				<div class="container">
+					<h1>Add Details</h1>
+					<label for="curr2"><b>Enter the course name or number you wish to update.</b></label>
+					<input type="text" placeholder="Name/Number" name="curr2" id='curr2' required>
+					<label for="cGoal"><b>Enter your letter grade goal.</b></label>
+					<input type="text" placeholder="Letter Grade" name="cGoal" id='cGoal' required>
+					<label for="cHours"><b>Enter the course credit hours.</b></label>
+					<input type="text" placeholder="Letter Grade" name="cHours" id='cHours' required>
+					<label for="cGrade"><b>Enter your final Grade</b></label>
+					<input type="text" placeholder="percentage" name="cGrade" id='cGrade' required>
+					<p>Enter the percentage required to achieve each letter grade</p>
+					<label for="aP"><b>A+</b></label>
+					<input type="text" placeholder="percentage" name="aP" id='aP' required>
+					<label for="a"><b>A</b></label>
+					<input type="text" placeholder="percentage" name="a" id='a' required>
+					<label for="aM"><b>A-</b></label>
+					<input type="text" placeholder="percentage" name="aM" id='aM' required>
+					<label for="bP"><b>B+</b></label>
+					<input type="text" placeholder="percentage" name="bP" id='bP' required>
+					<label for="b"><b>B</b></label>
+					<input type="text" placeholder="percentage" name="b" id='b' required>
+					<label for="bM"><b>B-</b></label>
+					<input type="text" placeholder="percentage" name="bM" id='bM' required>
+					<label for="cP"><b>C+</b></label>
+					<input type="text" placeholder="percentage" name="cP" id='cP' required>
+					<label for="c"><b>C</b></label>
+					<input type="text" placeholder="percentage" name="c" id='c' required>
+					<label for="cM"><b>C-</b></label>
+					<input type="text" placeholder="percentage" name="cM" id='cM' required>
+					<label for="d"><b>D</b></label>
+					<input type="text" placeholder="percentage" name="d" id='d' required>
+					<label for="f"><b>F</b></label>
+					<input type="text" placeholder="percentage" name="f" id='f' required>
+					<button type="button" onclick="addDetails();document.getElementById('AddDetails').style.display='none'">Add Details</button>
+				</div>
+				<div class="container" style="background-color:#f1f1f1">
+					<button type="button" onclick="document.getElementById('AddDetails').style.display='none'" class="CancelButton">Cancel</button>
+				</div>
+			</div>
+		</div>
+		<button onclick="document.getElementById('AddAssessment').style.display='block'" style="width:auto;">Add Assessment</button><br>
+    -->
+		<div id="AddAssessment" class="AllModals">
+			<div class="modal-content animate">
+
+				<div class="imgcontainer">
+					<span onclick="document.getElementById('AddAssessment').style.display='none'" class="close" title="Close Modal">&times;</span>
+				</div>
+
+				<div class="container">
+
+					<h1>Add Assessment</h1>
+
+					<label for="curr3"><b>Enter the course name or number you wish to update:</b></label>
+					<input type="text" placeholder="Name/Number" name="curr3" id='curr3' required>
+
+					<label for="aName"><b>Enter the assessment name:</b></label>
+					<input type="text" placeholder="Name" name="aName" id='aName' required>
+
+					<label for="aValue"><b>Enter the percentage value of the assessment:</b></label>
+					<input type="text" placeholder="Percentage" name="aValue" id='aValue' required>
+
+					<label for="aDue"><b>Enter the assessment due date (dd/mm/yyyy):</b></label>
+					<input type="text" placeholder="dd/mm/yyyy" name="aDue" id='aDue' required>
+
+					<button type="button" onclick="addAssessment();document.getElementById('AddAssessment').style.display='none'">Add Assessment</button>
+
+				</div>
+
+				<div class="container" style="background-color:#f1f1f1">
+					<button type="button" onclick="document.getElementById('AddAssessment').style.display='none'" class="CancelButton">Cancel</button>
+				</div>
+			</div>
+		</div>
+<!--
+		<button onclick="document.getElementById('AddGrades').style.display='block'" style="width:auto;">Add Assessment Grade</button><br>
+		<div id="AddGrades" class="AllModals">
+			<div class="modal-content animate">
+				<div class="imgcontainer">
+					<span onclick="document.getElementById('AddGrades').style.display='none'" class="close" title="Close Modal">&times;</span>
+				</div>
+				<div class="container">
+					<h1>Add Grade</h1>
+					<label for="curr4"><b>Enter the course name or number you wish to update:</b></label>
+					<input type="text" placeholder="Name/Number" name="curr4" id='curr4' required>
+					<label for="aGradeName"><b>Enter the assessment name:</b></label>
+					<input type="text" placeholder="Name" name="aGradeName" id='aGradeName' required>
+					<label for="aGrade"><b>Enter your grade:</b></label>
+					<input type="text" placeholder="Percentage" name="aGrade" id='aGrade' required>
+					<button type="button" onclick="addGrade();document.getElementById('AddGrades').style.display='none'">Add Grade</button>
+				</div>
+				<div class="container" style="background-color:#f1f1f1">
+					<button type="button" onclick="document.getElementById('AddGrades').style.display='none'" class="CancelButton">Cancel</button>
+				</div>
+			</div>
+		</div>
+		<button onclick="document.getElementById('ViewCourses').style.display='block'" style="width:auto;">View Courses</button><br>
+		<div id="ViewCourses" class="AllModals">
+			<div class="modal-content animate">
+				<div class="imgcontainer">
+					<span onclick="document.getElementById('ViewCourses').style.display='none'" class="close" title="Close Modal">&times;</span>
+				</div>
+				<div class="container">
+					<h1>View Course Details</h1>
+					<label for="curr5"><b>Enter the course name or number you wish to view:</b></label>
+					<input type="text" placeholder="Name/Number" name="curr5" id='curr5' required>
+					<button type="button" onclick="viewCourse()">View Course</button>
+					<p id="outDetails"></p>
+					<p id="outSched"></p>
+					<p id="outMon"></p>
+					<p id="outTues"></p>
+					<p id="outWed"></p>
+					<p id="outThurs"></p>
+					<p id="outFri"></p>
+					<p id="outAssessments"></p>
+					<p id="outGoal"></p>
+					<p id="outProjected"></p>
+					<p id="outSuggestion"></p>
+				</div>
+				<div class="container" style="background-color:#f1f1f1">
+					<button type="button" onclick="document.getElementById('ViewCourses').style.display='none'" class="CancelButton">Exit</button>
+				</div>
+			</div>
+		</div>
+		<button onclick="document.getElementById('ViewGPS').style.display='block';viewGPS()" style="width:auto;">GPS Tracker</button><br>
+		<div id="ViewGPS" class="AllModals">
+			<div class="modal-content animate">
+				<div class="imgcontainer">
+					<span onclick="document.getElementById('ViewGPS').style.display='none'" class="close" title="Close Modal">&times;</span>
+				</div>
+				<div class="container">
+					<h1>GPS</h1>
+					<p id="outGPS"></p>
+				</div>
+				<div class="container" style="background-color:#f1f1f1">
+					<button type="button" onclick="document.getElementById('ViewGPS').style.display='none'" class="CancelButton">Exit</button>
+				</div>
+			</div>
+		</div>
+		
+		
+		<p id="outCourse"></p>
+		<p id="outSchedule"></p>
+		<p id="mon"></p>
+		<p id="tues"></p>
+		<p id="wed"></p>
+		<p id="thurs"></p>
+		<p id="fri"></p>
+		<p id="outDet"></p>
+		<p id="outAss"></p>
+-->
+	</body>
+</html>
