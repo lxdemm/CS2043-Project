@@ -1,54 +1,131 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="./css/haileyHomePage.css">
-		<script src="./js/courses.js"></script>
-    </head>
 
-    <!-- NAVIGATION BAR -->
-	<ul>
-            <li style="cursor:pointer; float:left"><a href="http://127.0.0.1:8000/home">StudySmart</a></li>
-    
-            <!-- <div class="dropdown" style="float:left">
-                <li class="droplink" style="cursor:pointer"><a href="#" onclick="">Courses</a></li>
-                <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
-            </div> -->
-    
-            <!-- <div class="dropdown">
-                <li>
-                    <a class="dropbtn">Courses                        
-                        <i class="fa fa-caret-down"></i>
-                    </a>
-                </li>
-                <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
-            </div> -->
-            <li style="cursor:pointer"><a href="http://127.0.0.1:8000/courses">Courses</a></li>
-    
-            <li style="cursor:pointer"><a href="http://127.0.0.1:8000/grades">Grades</a></li>
-            <li style="cursor:pointer"><a href="http://127.0.0.1:8000/schedule">Schedule</a></li>
-            <li style="float:right; cursor:pointer"><a onclick="logOut()">Sign Out</a></li>
-        </ul>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="./css/courses.css">
+    <script src="./js/courses.js"></script>
+</head>
 
-    <body onload="checkCookie()">
-        <h2>View Courses</h2>
+<!-- NAVIGATION BAR -->
+<ul>
+    <li style="cursor:pointer; float:left"><a href="http://127.0.0.1:8000/home">StudySmart</a></li>
+    <!-- <li style="cursor:pointer"><a onclick="document.getElementById('ViewCourses').style.display='block'" style="width:auto;">View Course</a></li> -->
+    <li style="cursor:pointer"><a href="http://127.0.0.1:8000/view-course">View Courses</a></li>
+    <li style="cursor:pointer"><a href="#">Grades</a></li>
+    <li style="cursor:pointer"><a href="#">Schedule</a></li>
+    <li style="float:right; cursor:pointer"><a onclick="logOut()">Sign Out</a></li>
+</ul>
 
-        <div class="assessContainer" style="border:2px solid #1BAD69; float: left">
-            <h4 id="assessHeader" style="text-align: center">Course Progress</h4>
-            <h5 id="del1"></h5>
-            <h5 id="del2"></h5>
-            <h5 id="del3"></h5>
-            <h5 id="del4"></h5>
-            <h5 id="addAssess" onclick="">Add assessments to view progress...</h5>
+<body onload="checkCookie();loadCourseList();">
+    <div class="column side">
+        <board>
+            <h4> Assessments </h4>
+            <p id="assessList"></p>
+            <!-- <p id="addCourse" onclick="document.getElementById('AddCourse').style.display='block'" style="width:auto;"">Add a course...</h5>
+                <p id="
+                addCourse" onclick="document.getElementById('AddAssessment').style.display='block'" style="width:auto;"">Add an assessment...</h5>
+                <p id="
+                addCourse" onclick="document.getElementById('AddGrades').style.display='block'" style="width:auto;"">Add a grade...</h5> -->
+        </board>
+    </div>        
+                
+    <div class="column middle">
+        <!-- //drop down -->
+
+        <form class="select course"> Select a course:
+            <div style="float:right">
+                <input id="selection" list="courses" name="course">
+                <datalist id="courses"></datalist>
+                <input type="submit" onclick="loadCourseInfo()">
+            </div>
+        </form>
+
+        <hr>
+
+        <!-- 
+            SHOW COURSE INFO
+        -->
+    </div>
+
+    <div class="column side">
+        <board>
+            <h4>Goals</h4>
+            <p id="goals"></p>
+        </board>
+    </div>
+
+
+    <div id="AddCourse" class="AllModals">
+
+        <div class="modal-content animate">
+
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('AddCourse').style.display='none'" class="close" title="Close Modal">&times;</span>
+            </div>
+
+            <div class="container">
+                <h1 class="popupHeader">Add Course</h1>
+
+                <label for="cName"><b>Course Name</b></label>
+                <input type="text" placeholder="Course Name" name="cName" id='cName' required>
+
+                <label for="cNumber"><b>Course Number</b></label>
+                <input type="text" placeholder="Course Number" name="cNumber" id='cNumber' required>
+
+                <label for="cSection"><b>Section Number</b></label>
+                <input type="text" placeholder="Section Number" name="cSection" id='cSection' required>
+
+                <label for="cInst"><b>Instructor</b></label>
+                <input type="text" placeholder="Instructor Name" name="cInst" id='cInst' required>
+
+                <button type="button" onclick="document.getElementById('AddCourse').style.display='none';document.getElementById('AddCourse2').style.display='block';enableText()">Next</button>
+            </div>
+
+            <div class="container" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('AddCourse').style.display='none'" class="CancelButton">Cancel</button>
+            </div>
         </div>
-    </body>
+    </div>
+
+    <div id="AddCourse2" class="AllModals">
+
+        <div class="modal-content animate">
+
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('AddCourse2').style.display='none'" class="close" title="Close Modal">&times;</span>
+            </div>
+
+            <div class="container">
+                <h1 class="popupHeader">Add Course</h1>
+                <h2>Deliverables (select all that apply):</h2>
+
+                <input type="checkbox" id="assignBool" name="assignBool" value="assignBool" onclick="enableText()">
+                <label for="assignBool" style="font-size: 125%">Assignments</label>
+                <input type="numIn" placeholder="Enter value" name="assignNum" id='assignNum'><br>
+
+                <input type="checkbox" id="labBool" name="labBool" value="Labs" onclick="enableText()">
+                <label for="labBool" style="font-size: 125%">Labs</label>
+                <input type="numIn" placeholder="Enter value" name="labNum" id='labNum'><br>
+
+                <input type="checkbox" id="quizBool" name="quizBool" value="Quizzes" onclick="enableText()">
+                <label for="quizBool" style="font-size: 125%">Quizzes</label>
+                <input type="numIn" placeholder="Enter value" name="quizNum" id='quizNum'><br>
+
+                <input type="checkbox" id="midBool" name="midBool" value="Midterms" onclick="enableText()">
+                <label for="midBool" style="font-size: 125%">Midterms</label>
+                <input type="numIn" placeholder="Enter value" name="midNum" id='midNum'><br>
+
+                <button type="button" onclick="createCourse();document.getElementById('AddCourse2').style.display='none'">Add
+                    Course</button>
+            </div>
+
+            <div class="container" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('AddCourse2').style.display='none'" class="CancelButton">Cancel</button>
+            </div>
+        </div>
+    </div>
+</body>
+
 </html>

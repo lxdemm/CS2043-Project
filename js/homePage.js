@@ -80,9 +80,11 @@ function createCourse(){
             alert(http.responseText);
         }
     }
-    http.open('POST', url, true);
+    http.open('POST', url, false);
     http.setRequestHeader('Content-type','application/json; charset=utf-8');
     http.send(newCourseJSON);
+
+    viewCourseList();
 }
 
 //implement after "add class" has dropdowns and shit
@@ -136,90 +138,92 @@ function addDetails(){
 
 //fix up due date layout and type once dropdowns are implemented
 function addAssessment(){
-    var course = document.getElementById('curr3').value;
+    var course = document.getElementById('courseSelect').value;
     var courseInfo;
     var courseId;
     var aName = document.getElementById('aName').value;
     var aValue = parseInt(document.getElementById('aValue').value);
+    var aType = document.getElementById('aType').value;
+    console.log(aType)
     var aDue = document.getElementById('aDue').value;
 
-    var newAssess = {
-        Title: aName,
-        Due_Date: aDue
-    }
-
-    var newAssessJSON = JSON.stringify(newAssess);
-
-    const http = new XMLHttpRequest();
-    var url = "api/students/" + currentuser + "/courses/" + course;
-    http.onreadystatechange = function() {//Call a function when the state changes.
-        if(http.readyState == 4 && http.status == 200) {
-           courseInfo = JSON.parse(http.responseText);
-           console.log(courseInfo)
-           courseId = courseInfo[0].id;
-           console.log("ID: " + courseId)
+    if(aType != "default" && course != "Select a course...") {
+        var newAssess = {
+            Title: aName,
+            Type: aType,
+            Due_Date: aDue
         }
-    }
-    http.open('GET', url, false);
-    http.setRequestHeader('Content-type','application/json; charset=utf-8');
-    http.send(null);    
 
-    console.log("ID after request: " + courseId)
+        var newAssessJSON = JSON.stringify(newAssess);
 
-    const http2 = new XMLHttpRequest();
-
-    url = "api/students/" + currentuser + "/courses/" + courseId + "/assess";
-    http2.onreadystatechange = function() {//Call a function when the state changes.
-        if(http2.readyState == 4 && http2.status == 200) {
-           // alert(http.responseText);
+        const http = new XMLHttpRequest();
+        var url = "api/students/" + currentuser + "/courses/" + course;
+        http.onreadystatechange = function() {//Call a function when the state changes.
+            if(http.readyState == 4 && http.status == 200) {
+            courseInfo = JSON.parse(http.responseText);
+            console.log(courseInfo)
+            courseId = courseInfo[0].id;
+            console.log("ID: " + courseId)
+            }
         }
+        http.open('GET', url, false);
+        http.setRequestHeader('Content-type','application/json; charset=utf-8');
+        http.send(null);    
+
+        console.log("ID after request: " + courseId)
+
+        const http2 = new XMLHttpRequest();
+
+        url = "api/students/" + currentuser + "/courses/" + courseId + "/assess";
+        http2.onreadystatechange = function() {//Call a function when the state changes.
+            if(http2.readyState == 4 && http2.status == 200) {
+            // alert(http.responseText);
+            }
+        }
+        http2.open('POST', url, true);
+        http2.setRequestHeader('Content-type','application/json; charset=utf-8');
+        http2.send(newAssessJSON);
+
+        document.getElementById('courseSelect').
+        document.getElementById('aName').innerHTML = "";
+        document.getElementById('aValue').innerHTML = "";
+        document.getElementById('aDue').innerHTML = "";
+        document.getElementById('AddAssessment').style.display='none';
     }
-    http2.open('POST', url, true);
-    http2.setRequestHeader('Content-type','application/json; charset=utf-8');
-    http2.send(newAssessJSON);
+    else if(aType == "default") {
+        document.getElementById("addAssessError").innerHTML = "Assessment type not selected.";
+    } else if(course == "Select a course...") {
+        document.getElementById("addAssessError").innerHTML = "Course not selected.";
+    }
 }
 
 function dueToday() {
-    var assessList;
+    var dispList = "";
+    var courseList;
     var today = new Date();
     var day = today.getDate();
     var month = today.getMonth() + 1;
     var year = today.getFullYear();
 
-    const http = new XMLHttpRequest();
-    const url = "api/students/" + currentuser + "/assess";
-    http.onreadystatechange = function() {//Call a function when the state changes.
-        if(http.readyState == 4 && http.status == 200) {
-            //alert(http.responseText);
-            assessList = JSON.parse(http.responseText);
-            console.log(assessList)
-            console.log(day)
-            console.log(month)
-            console.log(year)
-        }
-    }
-    http.open('GET', url, false);
-    http.setRequestHeader('Content-type','application/json; charset=utf-8');
-    http.send(null);
-
-    var dispList = "";
+    courseList = getCourses();
+    console.log(courseList);
     var i;
-    if (assessList.length == 0) {
-        displist = "You have no tasks today!";
-    } else {
-        for (i=0; i<assessList.length; i++) {
-            var tempDate = assessList[i].Due_Date;
-            console.log(tempDate)
+    var j;
+    for(i=0; i<courseList.length; i++) {
+        assessments = getAssessments(courseList[i].id);
+        console.log(assessments);
+        for(j=0; j<assessments.length; j++) {
+            var tempDate = assessments[j].Due_Date;
+           console.log(tempDate)
             var thisDay = parseInt(tempDate.slice(0,2))
-            console.log(thisDay)
-            console.log(parseInt(tempDate.slice(3,5)))
-            console.log( parseInt(tempDate.slice(6,10)))
+          //  console.log(thisDay)
+          //  console.log(parseInt(tempDate.slice(3,5)))
+          //  console.log( parseInt(tempDate.slice(6,10)))
             if (parseInt(tempDate.slice(0,2)) == day && parseInt(tempDate.slice(3,5)) == month && parseInt(tempDate.slice(6, 10)) == year) {
-                dispList = dispList + assessList[i].Title + "<br />";
+                dispList = dispList + assessments[j].Title + "<br />";
             }
         }
     }
-    
     document.getElementById('dueToday').innerHTML = dispList;
 }
 
@@ -386,6 +390,58 @@ function viewCourse(){
     else if (projPer < perGoal){
         strSugg = strSugg + "You must average " + suggestion + "% on your remaining assessments to achieve your goal.";
     }*/
+}
+
+function getCourses() {
+    const http = new XMLHttpRequest();
+    const url = "api/students/" + currentuser + "/courses";
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+            //alert(http.responseText);
+            courseList = JSON.parse(http.responseText);
+        }
+    }
+    http.open('GET', url, false);
+    http.setRequestHeader('Content-type','application/json; charset=utf-8');
+    http.send(null);
+
+    return courseList;
+}
+
+function loadCourseList() {
+    //get all user's courses
+    const http = new XMLHttpRequest();
+    const url = "api/students/" + currentuser + "/courses";
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+            //alert(http.responseText);
+            courseList = JSON.parse(http.responseText);
+        }
+    }
+    http.open('GET', url, false);
+    http.setRequestHeader('Content-type','application/json; charset=utf-8');
+    http.send(null);
+   
+    var thisCourse;
+
+    var courseSelect = document.getElementsByClassName("courseSelect");
+    var i;
+    var j;
+    for(i=0; i<courseSelect.length; i++) {
+        thisCourse = document.createElement("option");
+        thisCourse.innerHTML = "Select a course...";
+        courseSelect[i].appendChild(thisCourse);
+    }
+
+    console.log("number of elements in courseSelect class: " + courseSelect.length)
+
+    for(i=0; i<courseList.length; i++) {
+        for(j=0; j<courseSelect.length; j++) {
+            thisCourse = document.createElement("option");
+            thisCourse.innerHTML = courseList[i].Course_ID;
+            courseSelect[j].appendChild(thisCourse);
+        }
+    }
 }
 
 function getAssessments(courseId) {

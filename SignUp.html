@@ -1,22 +1,69 @@
 <!DOCTYPE html>
 
+<!-- SET UP : HEADING -->
 <html>
     <head>
         <meta charset="UTF-8">
         <title>Welcome to StudySmart!</title>
-        <link rel="stylesheet" type="text/css" href="./css/signUp.css">
+        <link rel="stylesheet" type="text/css" href="./css/haileySignUp.css">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="./js/signUp.js"></script>
     </head>
 
-    <body onload = checkCookie()>
-        <h2>Accounts</h2>
+<!-- NAVIGATION BAR -->
+	<ul>
+        <li class="logo"><h1> <href="" style:"center">StudySmart</h1></li>
+        <li style="float:right"><a onclick="document.getElementById('Login').style.display='block'">Login</a></li>
+		<li style="float:right"><a onclick="document.getElementById('SignUp').style.display='block'">Sign Up</a></li>
+	</ul>
+	
+	
+<!-- SET UP : WELCOME / DESCRIPTION -->
+   <body onload = checkCookie()> 
+	<h2>Welcome to StudySmart!</h2>
+	<div class = "row">
+	<div class="column">
+		<p style="color: #247BA0">StudySmart is here to help students organize their busy schedules! StudySmart provides features that store grades, 
+		calculate GPA, allows students to set goals for themselves and many more! It also includes a calendar so that students
+		never miss any deadlines. Sign up today to help organize your life! </p>
+		</div>
+		<div class = "column">
 
-        <button onclick="document.getElementById('SignUp').style.display='block'" style="width:auto;">Sign Up</button>
+<!-- INSERT IMAGE -->
+	<!--<img src="studysmart.jpg" alt="StudySmart" style:"center">
+	</div>
+	-->
+<div class="w3-content w3-section" style="max-width:500px">
+  <img class="mySlides" src="test1.jpg" style="width:100%">
+  <img class="mySlides" src="test2.jpg" style="width:100%">
+  <img class="mySlides" src="test3.jpg" style="width:100%">
+  <img class="mySlides" src="test4.jpg" style="width:100%">
+</div>
 
-        <div id="SignUp" class="SignUpModal">
-            <div class="modal-content animate">
-                <div class="imgcontainer">
+<script>
+var myIndex = 0;
+carousel();
+function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+       x[i].style.display = "none";  
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}    
+    x[myIndex-1].style.display = "block";  
+    setTimeout(carousel, 2000); // Change image every 2 seconds
+}
+</script>
+	
+	
+	
+<!-- SIGN UP BUTTON -->
+      <!-- <button onclick="document.getElementById('SignUp').style.display='block'" style="width:auto;">Sign Up</button>
+       -->
+	   <div id="SignUp" class="SignUpModal">
+       	   	   <div class="modal-content animate">
+               <div class="imgcontainer">
                     <span onclick="document.getElementById('SignUp').style.display='none'" class="close" title="Close Modal">&times;</span>
                 </div>
 
@@ -34,29 +81,19 @@
 
                     <p id="signuperror" style="color: red;float: center"></p>
 
-                    <button type="submit" value="submit" onclick="createAccount()">Sign Up</button>
+                    <button type="submit" value="submit" onClick="createAccount()">Sign Up</button>
                 </div>
 
-                <div class="container" style="background-color:#f1f1f1">
+                <div class="container" style="background-color: #f1f1f1">
                     <button type="button" onclick="document.getElementById('SignUp').style.display='none'" class="CancelButton">Cancel</button>
                 </div>
             </div>
         </div>
 
-        <div id="SignUpSuccess" class="SignUpModal">
-                <!-- <div class="imgcontainer">
-                    <span onclick="document.getElementById('SignUp').style.display='none'" class="close" title="Close Modal">&times;</span>
-                </div> -->
-            <div class="modal-content">
-                <div class="container">
-                    <h1>Account successfully created.</h1>
-                    <button type="submit" value="submit" onclick="document.getElementById('SignUpSuccess').style.display='none'">OK</button>
-                </div>
-            </div>
-        </div>
-
-        <br><button onclick="document.getElementById('Login').style.display='block'" style="width:auto;">Login</button>
-
+		
+<!-- LOGIN BUTTON -->
+       <!-- <br><button onclick="document.getElementById('Login').style.display='block'" style="width:auto;">Login</button>
+-->
         <div id="Login" class="LoginModal">
             <div class="modal-content animate">
                 <div class="imgcontainer">
@@ -72,11 +109,11 @@
                     <label for="password2"><b>Password</b></label>
                     <input type="password" placeholder="Enter Password" name="password2" id='password2' required>
 
-                    <button onclick="login()">Log In</button>
+                    <p id="loginerror" style="color: red;float: center"></p>
 
-                    <!-- <div id="button">
-                        <a value="submit" onclick="login()">Log In</a>
-                    </div> -->
+                    <div id="button">
+                        <button type="button" onclick="login()">Log In</a>
+                    </div>
 
                     <div class="container" style="background-color:#f1f1f1">
                         <button type="button" onclick="document.getElementById('Login').style.display='none'" class="CancelButton">Cancel</button>
@@ -84,5 +121,8 @@
                 </div>
             </div>
         </div>
+
+	
+		
     </body>
 </html>

@@ -1,6 +1,67 @@
 var currentuser = getCookie("username");
 
 //course-related functions here
+function loadCourseList() {
+    //get all user's courses
+    const http = new XMLHttpRequest();
+    const url = "api/students/" + currentuser + "/courses";
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+            //alert(http.responseText);
+            courseList = JSON.parse(http.responseText);
+        }
+    }
+    http.open('GET', url, false);
+    http.setRequestHeader('Content-type','application/json; charset=utf-8');
+    http.send(null);
+
+    var i;
+    var thisCourse;
+    for(i=0; i<courseList.length; i++) {
+        thisCourse = document.createElement("option");
+        thisCourse.value = courseList[i].Course_ID;
+        document.getElementById("courses").appendChild(thisCourse);
+
+    }
+}
+
+function loadCourseInfo() {
+    var course = document.getElementById("selection").value;
+    var courseInfo;
+
+    const http = new XMLHttpRequest();
+    const url = "api/students/" + currentuser + "/courses/" + course;
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+            //alert(http.responseText);
+            courseInfo = JSON.parse(http.responseText);
+        }
+    }
+    http.open('GET', url, false);
+    http.setRequestHeader('Content-type','application/json; charset=utf-8');
+    http.send(null);
+
+    var assessList = getAssessments(courseInfo.id);
+    var i;
+}
+
+function getAssessments(courseId) {
+    var assessInfo;
+
+    const http2 = new XMLHttpRequest();
+    var url2 = "api/students/" + currentuser + "/courses/" + courseId + "/assess";
+    http2.onreadystatechange = function() {//Call a function when the state changes.
+        if(http2.readyState == 4 && http2.status == 200) {
+            assessInfo = JSON.parse(http2.responseText);
+           console.log(assessInfo)
+        }
+    }
+    http2.open('GET', url2, false);
+    http2.setRequestHeader('Content-type','application/json; charset=utf-8');
+    http2.send(null);     
+
+    return assessInfo;
+}
 
 //complete
 function setCookie(cname, cvalue, exdays) {

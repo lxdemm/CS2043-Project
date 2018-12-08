@@ -10,32 +10,11 @@
 	
 	<!-- NAVIGATION BAR -->
 	<ul>
-        <li style="cursor:pointer; float:left"><a href="http://127.0.0.1:8000/home">StudySmart</a></li>
-
-        <!-- <div class="dropdown" style="float:left">
-            <li class="droplink" style="cursor:pointer"><a href="#" onclick="">Courses</a></li>
-            <div class="dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-            </div>
-        </div> -->
-
-        <!-- <div class="dropdown">
-            <li>
-                <a class="dropbtn">Courses                        
-                    <i class="fa fa-caret-down"></i>
-                </a>
-            </li>
-            <div class="dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-            </div>
-        </div> -->
-        <li style="cursor:pointer"><a onclick="document.getElementById('ViewCourses').style.display='block'" style="width:auto;">View Course</a></li>
-		<li style="cursor:pointer"><a onclick="document.getElementById()">Grades</a></li>
-		<!-- <li style="cursor:pointer"><a href="http://127.0.0.1:8000/schedule">Schedule</a></li> -->
+		<li style="cursor:pointer; float:left"><a href="http://127.0.0.1:8000/home">StudySmart</a></li>
+		<!-- <li style="cursor:pointer"><a onclick="document.getElementById('ViewCourses').style.display='block'" style="width:auto;">View Course</a></li> -->
+		<li style="cursor:pointer"><a href="http://127.0.0.1:8000/view-course">View Courses</a></li>
+		<li style="cursor:pointer"><a href="#">Grades</a></li>
+		<li style="cursor:pointer"><a href="#">Schedule</a></li>
 		<li style="float:right; cursor:pointer"><a onclick="logOut()">Sign Out</a></li>
 	</ul>
     
@@ -48,12 +27,7 @@
         </div>
       </div> -->
 	
-	<body onload="checkCookie();viewCourseList();displayWelcome();displayCurrentDate();dueToday();">
-		<!-- <button onclick="logOut()" style="width:auto; float:right;">Log out</button>
-		-->
-		<!-- <h2>Welcome!</h2> -->
-		
-		
+	<body onload="checkCookie();viewCourseList();loadCourseList();displayWelcome();displayCurrentDate();dueToday();">
 		<!-- <div class = "row"> -->
 		<div class="column side">
             <board>
@@ -66,79 +40,99 @@
         </div>
         
         <div id="AddCourse" class="AllModals">
-
-                <div class="modal-content animate">
+            <div class="modal-content animate">
+                <div class="imgcontainer">
+                    <span onclick="document.getElementById('AddCourse').style.display='none'" class="close" title="Close Modal">&times;</span>
+                </div>
     
-                    <div class="imgcontainer">
-                        <span onclick="document.getElementById('AddCourse').style.display='none'" class="close" title="Close Modal">&times;</span>
-                    </div>
+                <div class="container">
+                    <h1 class="popupHeader">Add Course</h1>
     
-                    <div class="container">
-                        <h1 class="popupHeader">Add Course</h1>
+                    <label for="cName"><b>Course Name</b></label>
+                    <input type="text" placeholder="Course Name" name="cName" id='cName' required>
     
-                        <label for="cName"><b>Course Name</b></label>
-                        <input type="text" placeholder="Course Name" name="cName" id='cName' required>
+                    <label for="cNumber"><b>Course Number</b></label>
+                    <input type="text" placeholder="Course Number" name="cNumber" id='cNumber' required>
     
-                        <label for="cNumber"><b>Course Number</b></label>
-                        <input type="text" placeholder="Course Number" name="cNumber" id='cNumber' required>
+                    <label for="cSection"><b>Section Number</b></label>
+                    <input type="text" placeholder="Section Number" name="cSection" id='cSection' required>
     
-                        <label for="cSection"><b>Section Number</b></label>
-                        <input type="text" placeholder="Section Number" name="cSection" id='cSection' required>
+                    <label for="cInst"><b>Instructor</b></label>
+                    <input type="text" placeholder="Instructor Name" name="cInst" id='cInst' required>
     
-                        <label for="cInst"><b>Instructor</b></label>
-                        <input type="text" placeholder="Instructor Name" name="cInst" id='cInst' required>
+                    <button type="button" onclick="document.getElementById('AddCourse').style.display='none';document.getElementById('AddCourse2').style.display='block';enableText()">Next</button>
+                </div>
     
-                        <button type="button" onclick="document.getElementById('AddCourse').style.display='none';document.getElementById('AddCourse2').style.display='block';enableText()">Next</button>
-                    </div>
-    
-                    <div class="container" style="background-color:#f1f1f1">
-                        <button type="button" onclick="document.getElementById('AddCourse').style.display='none'" class="CancelButton">Cancel</button>
-                    </div>
+                <div class="container" style="background-color:#f1f1f1">
+                    <button type="button" onclick="document.getElementById('AddCourse').style.display='none'" class="CancelButton">Cancel</button>
                 </div>
             </div>
+        </div>
 
-            <div id="AddCourse2" class="AllModals">
+        <div id="AddCourse2" class="AllModals">
 
-                    <div class="modal-content animate">
+            <div class="modal-content animate">
         
-                        <div class="imgcontainer">
-                            <span onclick="document.getElementById('AddCourse2').style.display='none'" class="close" title="Close Modal">&times;</span>
-                        </div>
-        
-                        <div class="container">
-                            <h1 class="popupHeader">Add Course</h1>
-                            <h2>Deliverables (select all that apply):</h2>
-        
-                            <input type="checkbox" id="assignBool" name="assignBool" value="assignBool" onclick="enableText()">
-                            <label for="assignBool" style="font-size: 125%">Assignments</label>
-                            <input type="numIn" placeholder="Enter value" name="assignNum" id='assignNum'><br>
-        
-                            <input type="checkbox" id="labBool" name="labBool" value="Labs" onclick="enableText()"> 
-                            <label for="labBool" style="font-size: 125%">Labs</label>
-                            <input type="numIn" placeholder="Enter value" name="labNum" id='labNum'><br>
-
-                            <input type="checkbox" id="quizBool" name="quizBool" value="Quizzes" onclick="enableText()">
-                            <label for="quizBool" style="font-size: 125%">Quizzes</label>
-                            <input type="numIn" placeholder="Enter value" name="quizNum" id='quizNum'><br>
-
-                            <input type="checkbox" id="midBool" name="midBool" value="Midterms" onclick="enableText()">                            
-                            <label for="midBool" style="font-size: 125%">Midterms</label>
-                            <input type="numIn" placeholder="Enter value" name="midNum" id='midNum'><br>
-        
-                            <button type="button" onclick="createCourse();document.getElementById('AddCourse2').style.display='none'">Add Course</button>
-                        </div>
-        
-                        <div class="container" style="background-color:#f1f1f1">
-                            <button type="button" onclick="document.getElementById('AddCourse2').style.display='none'" class="CancelButton">Cancel</button>
-                        </div>
-                    </div>
+                <div class="imgcontainer">
+                    <span onclick="document.getElementById('AddCourse2').style.display='none'" class="close" title="Close Modal">&times;</span>
                 </div>
+        
+                <div class="container">
+                    <h1 class="popupHeader">Add Course</h1>
+                    <h2>Deliverables (select all that apply):</h2>
+        
+                    <input type="checkbox" id="assignBool" name="assignBool" value="assignBool" onclick="enableText()">
+                    <label for="assignBool" style="font-size: 125%">Assignments</label>
+                    <input type="numIn" placeholder="Enter value" name="assignNum" id='assignNum'><br>
+        
+                    <input type="checkbox" id="labBool" name="labBool" value="Labs" onclick="enableText()"> 
+                    <label for="labBool" style="font-size: 125%">Labs</label>
+                    <input type="numIn" placeholder="Enter value" name="labNum" id='labNum'><br>
+
+                    <input type="checkbox" id="quizBool" name="quizBool" value="Quizzes" onclick="enableText()">
+                    <label for="quizBool" style="font-size: 125%">Quizzes</label>
+                    <input type="numIn" placeholder="Enter value" name="quizNum" id='quizNum'><br>
+
+                    <input type="checkbox" id="midBool" name="midBool" value="Midterms" onclick="enableText()">                            
+                    <label for="midBool" style="font-size: 125%">Midterms</label>
+                    <input type="numIn" placeholder="Enter value" name="midNum" id='midNum'><br>
+        
+                    <button type="button" onclick="createCourse();document.getElementById('AddCourse2').style.display='none'">Add Course</button>
+                </div>
+        
+                <div class="container" style="background-color:#f1f1f1">
+                    <button type="button" onclick="document.getElementById('AddCourse2').style.display='none'" class="CancelButton">Cancel</button>
+                </div>
+            </div>
+		</div>
+					
+		<!-----------------------------------
+		----------- CALENDER ----------------
+		------------------------------------->
 		
 		<div class = "column middle">
             <h2 id="welcomeMessage" style="text-align: center"></h2>
             <h4 id="displayDate"></h4>
-            <h3>Here's how the next 7 days are looking:</h3>
-            <h5 class="schedule"></h5>
+            <h3>Here's your weekly overview:</h3>
+            <ul class="weekdays">
+				<li>Mo</li>
+				<li>Tu</li>
+				<li>We</li>
+				<li>Th</li>
+				<li>Fr</li>
+				<li>Sa</li>
+				<li>Su</li>
+			</ul>
+
+			<ul class="days">  
+				<li <td break-word class = "document.getElementById('day1').innerHTML"></td></li>
+				<li <td break-word class = "document.getElementById('day2').innerHTML"></td></li>			
+				<li <td break-word class = "document.getElementById('day3').innerHTML"></td></li>				
+				<li <td break-word class = "document.getElementById('day4').innerHTML"></td></li>
+				<li <td break-word class = "document.getElementById('day5').innerHTML"></td></li>
+				<li <td break-word class = "document.getElementById('day6').innerHTML"></td></li>
+				<li <td break-word class = "document.getElementById('day7').innerHTML"></td></li>
+			</ul>
 		</div>
 		
 		<div class = "column side">
@@ -147,8 +141,6 @@
                 <p id="dueToday"></p>
             </board>
 		</div>
-		
-		
 		
 		<!--
 		
@@ -268,8 +260,20 @@
 
 					<h1 class="popupHeader">Add Assessment</h1>
 
-					<label for="curr3"><b>Enter the course name or number you wish to update:</b></label>
-					<input type="text" placeholder="Name/Number" name="curr3" id='curr3' required>
+					<label><b>Select a course:</b></label>
+					<!-- <input type="text" placeholder="Name/Number" name="curr3" id='curr3' required> -->
+					<select class="courseSelect">
+					</select><br>
+
+					<label for="aType"><b>Select the assessment type:</b></label>
+					<!-- <input id="selection" list="courses" name="course"> -->
+                	<select id="aType">
+						<option value="default">Select a type...</option>
+						<option value="assignment">Assignment</option>
+						<option value="lab">Lab</option>
+						<option value="quiz">Quiz</option>
+						<option value="midterm">Midterm</option>
+					</select><br><br>
 
 					<label for="aName"><b>Enter the assessment name:</b></label>
 					<input type="text" placeholder="Name" name="aName" id='aName' required>
@@ -280,7 +284,9 @@
 					<label for="aDue"><b>Enter the assessment due date (dd/mm/yyyy):</b></label>
 					<input type="text" placeholder="dd/mm/yyyy" name="aDue" id='aDue' required>
 
-					<button type="button" onclick="addAssessment();document.getElementById('AddAssessment').style.display='none'">Add Assessment</button>
+					<p id="addAssessError" style="color: red"></p>
+
+					<button type="button" onclick="addAssessment();">Add Assessment</button>
 
 				</div>
 
@@ -301,8 +307,13 @@
 				<div class="container">
 					<h1 class="popupHeader">Add Grade</h1>
 
-					<label for="curr4"><b>Enter the course name or number you wish to update:</b></label>
-					<input type="text" placeholder="Name/Number" name="curr4" id='curr4' required>
+					<!-- <label for="curr4"><b>Enter the course name or number you wish to update:</b></label>
+					<input type="text" placeholder="Name/Number" name="curr4" id='curr4' required> -->
+
+					<label><b>Select a course:</b></label>
+					<!-- <input type="text" placeholder="Name/Number" name="curr3" id='curr3' required> -->
+					<select class="courseSelect">
+					</select><br>
 
 					<label for="aGradeName"><b>Enter the assessment name:</b></label>
 					<input type="text" placeholder="Name" name="aGradeName" id='aGradeName' required>
